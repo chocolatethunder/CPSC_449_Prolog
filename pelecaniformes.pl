@@ -112,6 +112,34 @@ species(ajaja).
 */
 
 % Data Base starts.
+
+commonName(A):-
+	A = pelican;
+	A = americanWhitePelican;
+	A = brownPelican;
+	A = bittern;
+	A = americanBittern;
+	A = leastBittern;
+	A = heron;
+	A = greatBlueHeron;
+	A = greatEgret;
+	A = egret;
+	A = snowyEgret;
+	A = littleBlueHeron;
+	A = tricoloredHeron;
+	A = reddishEgret;
+	A = cattleEgret;
+	A = greenHeron;
+	A = nightHeron;
+	A = blackCrownedNightHeron;
+	A = nightHeron;
+	A = yellowCrownedNightHeron;
+	A = ibis;
+	A = whiteIbis;
+	A = glossyIbis;
+	A = whiteFacedIbis;
+	A = spoonbill;
+	A = roseateSpoonbill.
               
 order(pelecaniformes).
 
@@ -290,34 +318,40 @@ hasCommonName_raw(N,C):-
 
 % Data Base ends
 	
+%Test: Pass
 hasParent(A,B):-
 	isSpeciesOf(A,B); isGenusOf(A,B); isFamilyOf(A,B).
-	
+
+%Test: Pass
 hasParent2(A, B):-
 	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
+%Test: Pass
 hasCommonName(N, C):-
-	genus(N),
-	!,
 	hasCommonName_gen(N,C);
 	hasCommonName_com(N,C).
 
+%Test: Pass
 hasCommonName(G,S,C):-
 	isSpeciesOf(S,G), hasCommonName_raw(S,C).
 
+%Test: Pass
 hasSciName(C,N):-
-	species_com(N),
-	!,
 	hasCommonName_com(N,C);
 	hasCommonName_gen(N,C).
 
+%Test: Pass
 hasCompoundName(G,S,N):-
 	isSpeciesOf(S,G),
-	isSpeciesOf_com(N,G).
+	hasCommonName(G,S,C),
+	hasCommonName(N,C).
 
+%Test: Pass
 isaStrict(A,B):-
-	hasCommonName(X,B), X = A;
-	hasCommonName(A,X), X = B;
+	family(A),family(B),A = B;
+	order(A),order(B),A = B;
+	species_com(A),species_com(B),A = B;
+	genus(A),genus(B),A = B;
 	isSpeciesOf_com(A,X),isGenusOf(X,Y),isFamilyOf(Y,B);
 	isGenusOf(A,Y),isFamilyOf(Y,B);
 	isSpeciesOf_com(A,X),isGenusOf(X,B);
@@ -325,15 +359,27 @@ isaStrict(A,B):-
 	isGenusOf(A,B);
 	isSpeciesOf_com(A,B).
 
+%Test: Pass/Fail
+
 isa(A,B):-
-	hasCommonName(X, A),
-	!,
-	isaStrict(X,B);
-	isaStrict(A,B).
+	\+(and(commonName(A),commonName(B))) -> isaStrict(A,B);
+	isa2(A,B).
+	
+isa2(A,B):-
+	commonName(A), hasCommonName(X,A), X = B;
+	commonName(B), hasCommonName(X,B), X = A.
+	/*commonName(A), hasCommonName(X,A), \+(X = B), isaStrict(X,B);
+	commonName(B), hasCommonName(X,B), \+(X = A), isaStrict(A,X);
+	commonName(A), hasCommonName(X,A), commonName(B), hasCommonName(Y,B), X = Y;
+	commonName(A), hasCommonName(X,A), commonName(B), hasCommonName(Y,B), \+(X = Y), isaStrict(X,Y).*/
+
+and(L,R) :- L,R.
+
+%Test: Pass/*Fail
+synonym(A,B):-
+	hasCommonName(X,A), hasCommonName(X,B).
 
 /*
-
-synonym(?A, ?B).
 
 countSpecies(?A, -N).
 
