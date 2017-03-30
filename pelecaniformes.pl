@@ -315,10 +315,23 @@ hasCompoundName(G,S,N):-
 	isSpeciesOf(S,G),
 	isSpeciesOf_com(N,G).
 
-/*
-isaStrict(?A, ?B).
+isaStrict(A,B):-
+	hasCommonName(X,B), X = A;
+	hasCommonName(A,X), X = B;
+	isSpeciesOf_com(A,X),isGenusOf(X,Y),isFamilyOf(Y,B);
+	isGenusOf(A,Y),isFamilyOf(Y,B);
+	isSpeciesOf_com(A,X),isGenusOf(X,B);
+	isFamilyOf(A,B);
+	isGenusOf(A,B);
+	isSpeciesOf_com(A,B).
 
-isa(?A, ?B).
+isa(A,B):-
+	hasCommonName(X, A),
+	!,
+	isaStrict(X,B);
+	isaStrict(A,B).
+
+/*
 
 synonym(?A, ?B).
 
