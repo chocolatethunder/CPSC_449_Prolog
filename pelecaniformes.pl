@@ -359,30 +359,38 @@ isaStrict(A,B):-
 	isGenusOf(A,B);
 	isSpeciesOf_com(A,B).
 
-%Test: Pass/Fail
+%Test: Pass
+synonym(A,B):-
+	hasCommonName(B,A), \+(A=B);
+	hasCommonName(A,B), \+(A=B);
+	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
 
+%Test: Pass/*Fail(partially fail)
 isa(A,B):-
-	\+(and(commonName(A),commonName(B))) -> isaStrict(A,B);
+	isaStrict(A,B);
 	isa2(A,B).
 	
 isa2(A,B):-
-	commonName(A), hasCommonName(X,A), X = B;
-	commonName(B), hasCommonName(X,B), X = A.
-	/*commonName(A), hasCommonName(X,A), \+(X = B), isaStrict(X,B);
-	commonName(B), hasCommonName(X,B), \+(X = A), isaStrict(A,X);
-	commonName(A), hasCommonName(X,A), commonName(B), hasCommonName(Y,B), X = Y;
-	commonName(A), hasCommonName(X,A), commonName(B), hasCommonName(Y,B), \+(X = Y), isaStrict(X,Y).*/
-
+	commonName(A), \+(commonName(B)), hasCommonName(X,A), X = B;
+	\+(commonName(A)), commonName(B), hasCommonName(X,B), X = A;
+	commonName(A), \+(commonName(B)), hasCommonName(X,A), \+(X = B), \+(commonName(X)), isaStrict(X,B);
+	\+(commonName(A)), commonName(B), hasCommonName(X,B), \+(X = A), \+(commonName(X)), isaStrict(A,X);
+	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(commonName(X)), \+(commonName(Y)), X = Y;
+	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(X = Y), \+(commonName(X)), \+(commonName(Y)), isaStrict(X,Y).
 and(L,R) :- L,R.
 
 %Test: Pass/*Fail
-synonym(A,B):-
-	hasCommonName(X,A), hasCommonName(X,B).
+countSpecies(A, 0):-
+	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
+countSpecies(A, 1):-
+	species_com(A).
+countSpecies(A, N):-
+	isSpeciesOf_com(X,A),
+	countSpecies(A,N1),
+	N is N1 + 1.
 
+%Test: Pass/Fail
 /*
-
-countSpecies(?A, -N).
-
 rangesTo(?A, ?P).
 
 habitat(?A, ?B).
