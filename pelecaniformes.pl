@@ -242,24 +242,24 @@ species(A):-
 	A = ajaja.
 	
 species_com(A):-
-	A = pelecanus_erythrorhynchos;
-	A = pelecanus_occidentalis;
-	A = botaurus_lentiginosus;
-	A = ixobrychus_exilis;
-	A = ardea_herodias;
-	A = ardea_alba;
-	A = egretta_thula;
-	A = egretta_caerulea;
-	A = egretta_tricolor;
-	A = egretta_rufescens;
-	A = bubulcus_ibis;
-	A = butorides_virescens;
-	A = nycticorax_nycticorax;
-	A = nyctanassa_violacea;
-	A = eudocimus_albus;
-	A = plegadis_falcinellus;
-	A = plegadis_chihi;
-	A = platalea_ajaja.
+	A = pelecanus_erythrorhynchos;	% Alberta
+	A = pelecanus_occidentalis;		% not in Canada
+	A = botaurus_lentiginosus;		% Alberta
+	A = ixobrychus_exilis;			% Canada ?
+	A = ardea_herodias;				% Alberta
+	A = ardea_alba;					% Alberta
+	A = egretta_thula;				% Alberta
+	A = egretta_caerulea;			% Alberta
+	A = egretta_tricolor;			% Canada
+	A = egretta_rufescens;			% not in Canada
+	A = bubulcus_ibis;				% Alberta
+	A = butorides_virescens;		% Canada
+	A = nycticorax_nycticorax;		% Alberta
+	A = nyctanassa_violacea;		% Canada
+	A = eudocimus_albus;			% Canada
+	A = plegadis_falcinellus;		% Canada
+	A = plegadis_chihi;				% Alberta
+	A = platalea_ajaja.				% not in Canada
 
 hasCommonName_gen(N,C):-
 	N = pelecanus,C = pelican;
@@ -389,16 +389,24 @@ countSpecies(A, N):-
 	countSpecies(A,N1),
 	N is N1 + 1.
 
-%Test: Pass/Fail
-/*
-rangesTo(?A, ?P).
 
+/*
+%Test: Pass/Fail
+rangesTo(A, P).
+
+%Test: Pass/Fail
 habitat(?A, ?B).
 
+%Test: Pass/Fail
 food(?A, ?B).
 
+%Test: Pass/Fail
 nesting(?A, ?B).
 
+%Test: Pass/Fail
 behavior(?A, ?B).
 
-conservation(?A, ?B).*/
+%Test: Pass/Fail
+conservation(?A, ?B).
+
+*/
