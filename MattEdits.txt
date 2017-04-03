@@ -1,0 +1,428 @@
+/*
+Order	Family	Genus	Species
+pelecaniformes
+
+        pelecanidae
+                pelecanus (pelican)
+                        erythrorhynchos (americanWhitePelican)
+                        occidentalis (brownPelican)
+
+        ardeidae
+                botaurus (bittern)
+                        lentiginosus (americanBittern)
+                ixobrychus (bittern)
+                        exilis (leastBittern)
+                ardea (heron)
+                        herodias (greatBlueHeron)
+                        alba (greatEgret)
+                egretta (heron, egret)
+                        thula (snowyEgret)
+                        caerulea (littleBlueHeron)
+                        tricolor (tricoloredHeron)
+                        rufescens (reddishEgret)
+                bubulcus (egret)
+                        ibis (cattleEgret)
+                butorides (heron)
+                        virescens (greenHeron)
+                nycticorax (nightHeron)
+                        nycticorax (blackCrownedNightHeron)
+                nyctanassa (nightHeron)
+                        violacea (yellowCrownedNightHeron)
+
+        threskiornithidae
+                eudocimus (ibis)
+                        albus (whiteIbis)
+                plegadis (ibis)
+                        falcinellus (glossyIbis)
+                        chihi (whiteFacedIbis)
+                platalea (spoonbill)
+                        ajaja (roseateSpoonbill)
+*/
+/*                     
+order(pelecaniformes).
+
+family(pelecanidae).
+family(ardeidae).
+family(threskiornithidae).
+
+genus(pelecanus).
+genus(botaurus).
+genus(ixobrychus).
+genus(ardea).
+genus(egretta).
+genus(bubulcus).
+genus(butorides).
+genus(nycticorax).
+genus(nyctanassa).
+genus(eudocimus).
+genus(plegadis).
+genus(platalea).
+
+species(erythrorhynchos).
+species(occidentalis).
+species(lentiginosus).
+species(exilis).
+species(herodias).
+species(alba).
+species(thula).
+species(caerulea).
+species(tricolor).
+species(rufescens).
+species(ibis).
+species(virescens).
+species(nycticorax).
+species(violacea).
+species(albus).
+species(falcinellus).
+species(chihi).
+species(ajaja).
+
+isFamilyOf(pelecanidae,pelecaniformes).
+isFamilyOf(ardeidae,pelecaniformes).
+isFamilyOf(threskiornithidae,pelecaniformes).
+
+isGenusOf(pelecanus,pelecanidae).
+isGenusOf(botaurus,ardeidae).
+isGenusOf(ixobrychus,ardeidae).
+isGenusOf(ardea,ardeidae).
+isGenusOf(egretta,ardeidae).
+isGenusOf(bubulcus,ardeidae).
+isGenusOf(butorides,ardeidae).
+isGenusOf(nycticorax,ardeidae).
+isGenusOf(nyctanassa,ardeidae).
+isGenusOf(eudocimus,threskiornithidae).
+isGenusOf(plegadis,threskiornithidae).
+isGenusOf(platalea,threskiornithidae).
+
+isSpeciesOf(erythrorhynchos,pelecanus).
+isSpeciesOf(occidentalis,pelecanus).
+isSpeciesOf(lentiginosus,botaurus).
+isSpeciesOf(exilis,ixobrychus).
+isSpeciesOf(herodias,ardea).
+isSpeciesOf(alba,ardea).
+isSpeciesOf(thula,egretta).
+isSpeciesOf(caerulea,egretta).
+isSpeciesOf(tricolor,egretta).
+isSpeciesOf(rufescens,egretta).
+isSpeciesOf(ibis,bubulcus).
+isSpeciesOf(virescens,butorides).
+isSpeciesOf(nycticorax,nycticorax).
+isSpeciesOf(violacea,nyctanassa).
+isSpeciesOf(albus,eudocimus).
+isSpeciesOf(falcinellus,plegadis).
+isSpeciesOf(chihi,plegadis).
+isSpeciesOf(ajaja,platalea).
+*/
+
+% Data Base starts.
+
+%Checks if A is a listed order name
+order(A) :-
+	A = pelecaniformes.
+
+%Checks if A is a common name
+commonName(A):-
+	A = pelican;
+	A = americanWhitePelican;
+	A = brownPelican;
+	A = bittern;
+	A = americanBittern;
+	A = leastBittern;
+	A = heron;
+	A = greatBlueHeron;
+	A = greatEgret;
+	A = egret;
+	A = snowyEgret;
+	A = littleBlueHeron;
+	A = tricoloredHeron;
+	A = reddishEgret;
+	A = cattleEgret;
+	A = greenHeron;
+	A = nightHeron;
+	A = blackCrownedNightHeron;
+	A = nightHeron;
+	A = yellowCrownedNightHeron;
+	A = ibis;
+	A = whiteIbis;
+	A = glossyIbis;
+	A = whiteFacedIbis;
+	A = spoonbill;
+	A = roseateSpoonbill.
+
+%Checks if A is a family name under order name B
+isFamilyOf(A,B):-
+	A = pelecanidae,B = pelecaniformes;
+	A = ardeidae,B = pelecaniformes;
+	A = threskiornithidae,B = pelecaniformes.
+
+%Checks if A is a listed family name
+family(A):-
+	A = pelecanidae;
+	A = ardeidae;
+	A = threskiornithidae.
+
+%Checks if A is a genus name under family name B
+isGenusOf(A,B):-
+	A = pelecanus,B = pelecanidae;
+	A = botaurus,B = ardeidae;
+	A = ixobrychus,B = ardeidae;
+	A = ardea,B = ardeidae;
+	A = egretta,B = ardeidae;
+	A = bubulcus,B = ardeidae;
+	A = butorides,B = ardeidae;
+	A = nycticorax,B = ardeidae;
+	A = nyctanassa,B = ardeidae;
+	A = eudocimus,B = threskiornithidae;
+	A = plegadis,B = threskiornithidae;
+	A = platalea,B = threskiornithidae.
+
+%Checks if A is a listed genus name
+genus(A):-
+	A = pelecanus;
+	A = botaurus;
+	A = ixobrychus;
+	A = ardea;
+	A = egretta;
+	A = bubulcus;
+	A = butorides;
+	A = nycticorax;
+	A = nyctanassa;
+	A = eudocimus;
+	A = plegadis;
+	A = platalea.
+
+%Checks if A is a species name under genus name B
+isSpeciesOf(A,B):-
+	A = erythrorhynchos,B = pelecanus;
+	A = occidentalis,B = pelecanus;
+	A = lentiginosus,B = botaurus;
+	A = exilis,B = ixobrychus;
+	A = herodias,B = ardea;
+	A = alba,B = ardea;
+	A = thula,B = egretta;
+	A = caerulea,B = egretta;
+	A = tricolor,B = egretta;
+	A = rufescens,B = egretta;
+	A = ibis,B = bubulcus;
+	A = virescens,B = butorides;
+	A = nycticorax,B = nycticorax;
+	A = violacea,B = nyctanassa;
+	A = albus,B = eudocimus;
+	A = falcinellus,B = plegadis;
+	A = chihi,B = plegadis;
+	A = ajaja,B = platalea.
+
+%Checks if A is a compound species name under genus name B
+isSpeciesOf_com(A,B):-
+	A = pelecanus_erythrorhynchos,B = pelecanus;
+	A = pelecanus_occidentalis,B = pelecanus;
+	A = botaurus_lentiginosus,B = botaurus;
+	A = ixobrychus_exilis,B = ixobrychus;
+	A = ardea_herodias,B = ardea;
+	A = ardea_alba,B = ardea;
+	A = egretta_thula,B = egretta;
+	A = egretta_caerulea,B = egretta;
+	A = egretta_tricolor,B = egretta;
+	A = egretta_rufescens,B = egretta;
+	A = bubulcus_ibis,B = bubulcus;
+	A = butorides_virescens,B = butorides;
+	A = nycticorax_nycticorax,B = nycticorax;
+	A = nyctanassa_violacea,B = nyctanassa;
+	A = eudocimus_albus,B = eudocimus;
+	A = plegadis_falcinellus,B = plegadis;
+	A = plegadis_chihi,B = plegadis;
+	A = platalea_ajaja,B = platalea.
+
+%Checks if A is a listed species name
+species(A):-
+	A = erythrorhynchos;
+	A = occidentalis;
+	A = lentiginosus;
+	A = exilis;
+	A = herodias;
+	A = alba;
+	A = thula;
+	A = caerulea;
+	A = tricolor;
+	A = rufescens;
+	A = ibis;
+	A = virescens;
+	A = nycticorax;
+	A = violacea;
+	A = albus;
+	A = falcinellus;
+	A = chihi;
+	A = ajaja.
+
+%Checks if A is a listed compound species name
+species_com(A):-
+	A = pelecanus_erythrorhynchos;
+	A = pelecanus_occidentalis;
+	A = botaurus_lentiginosus;
+	A = ixobrychus_exilis;
+	A = ardea_herodias;
+	A = ardea_alba;
+	A = egretta_thula;
+	A = egretta_caerulea;
+	A = egretta_tricolor;
+	A = egretta_rufescens;
+	A = bubulcus_ibis;
+	A = butorides_virescens;
+	A = nycticorax_nycticorax;
+	A = nyctanassa_violacea;
+	A = eudocimus_albus;
+	A = plegadis_falcinellus;
+	A = plegadis_chihi;
+	A = platalea_ajaja.
+
+%Checks if genus name A has common genus name B
+hasCommonName_gen(A,B):-
+	A = pelecanus,B = pelican;
+	A = botaurus,B = bittern;
+	A = ixobrychus,B = bittern;
+	A = ardea,B = heron;
+	A = egretta,B = heron;
+	A = egretta,B = egret;
+	A = bubulcus,B = egret;
+	A = butorides,B = heron;
+	A = nycticorax,B = nightHeron;
+	A = nyctanassa,B = nightHeron;
+	A = eudocimus,B = ibis;
+	A = plegadis,B = ibis;
+	A = platalea,B = spoonbill.
+
+%Checks if compound species name A has common species name B
+hasCommonName_com(A,B):-
+	A = pelecanus_erythrorhynchos,B = americanWhitePelican;
+	A = pelecanus_occidentalis,B = brownPelican;
+	A = botaurus_lentiginosus,B = americanBittern;
+	A = ixobrychus_exilis,B = leastBittern;
+	A = ardea_herodias,B = greatBlueHeron;
+	A = ardea_alba,B = greatEgret;
+	A = egretta_thula,B = snowyEgret;
+	A = egretta_caerulea,B = littleBlueHeron;
+	A = egretta_tricolor,B = tricoloredHeron;
+	A = egretta_rufescens,B = reddishEgret;
+	A = bubulcus_ibis,B = cattleEgret;
+	A = butorides_virescens,B = greenHeron;
+	A = nycticorax_nycticorax,B = blackCrownedNightHeron;
+	A = nyctanassa_violacea,B = yellowCrownedNightHeron;
+	A = eudocimus_albus,B = whiteIbis;
+	A = plegadis_falcinellus,B = glossyIbis;
+	A = plegadis_chihi,B = whiteFacedIbis;
+	A = platalea_ajaja,B = roseateSpoonbill.
+
+%Checks if raw species name A has common species name B
+hasCommonName_raw(A,B):-
+	A = erythrorhynchos,B = americanWhitePelican;
+	A = occidentalis,B = brownPelican;
+	A = lentiginosus,B = americanBittern;
+	A = exilis,B = leastBittern;
+	A = herodias,B = greatBlueHeron;
+	A = alba,B = greatEgret;
+	A = thula,B = snowyEgret;
+	A = caerulea,B = littleBlueHeron;
+	A = tricolor,B = tricoloredHeron;
+	A = rufescens,B = reddishEgret;
+	A = ibis,B = cattleEgret;
+	A = virescens,B = greenHeron;
+	A = nycticorax,B = blackCrownedNightHeron;
+	A = violacea,B = yellowCrownedNightHeron;
+	A = albus,B = whiteIbis;
+	A = falcinellus,B = glossyIbis;
+	A = chihi,B = whiteFacedIbis;
+	A = ajaja,B = roseateSpoonbill.
+
+% Data Base ends
+
+%Checks parent of input A is input B
+%Where A and B are species, genus, or family names
+%Test: Pass
+hasParent(A,B):-
+	isSpeciesOf(A,B); isGenusOf(A,B); isFamilyOf(A,B).
+
+%Checks parent of input A is input B
+%Where A is an order, family, genus, or compound species name.
+%Where B is an order, family, or genus name.
+%Test: Pass
+hasParent2(A, B):-
+	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
+
+%Test: Pass
+hasCommonName(A, B):-
+	hasCommonName_gen(A,B);
+	hasCommonName_com(A,B).
+
+%Test: Pass
+hasCommonName(G,S,B):-
+	isSpeciesOf(S,G), hasCommonName_raw(S,B).
+
+%Test: Pass
+hasSciName(B,A):-
+	hasCommonName_com(A,B);
+	hasCommonName_gen(A,B).
+
+%Test: Pass
+hasCompoundName(G,S,A):-
+	isSpeciesOf(S,G),
+	hasCommonName(G,S,B),
+	hasCommonName(A,B).
+
+%Test: Pass
+isaStrict(A,B):-
+	family(A),family(B),A = B;
+	order(A),order(B),A = B;
+	species_com(A),species_com(B),A = B;
+	genus(A),genus(B),A = B;
+	isSpeciesOf_com(A,X),isGenusOf(X,Y),isFamilyOf(Y,B);
+	isGenusOf(A,Y),isFamilyOf(Y,B);
+	isSpeciesOf_com(A,X),isGenusOf(X,B);
+	isFamilyOf(A,B);
+	isGenusOf(A,B);
+	isSpeciesOf_com(A,B).
+
+%Test: Pass
+synonym(A,B):-
+	hasCommonName(B,A), \+(A=B);
+	hasCommonName(A,B), \+(A=B);
+	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
+
+%Test: Pass/*Fail(partially fail)*/
+isa(A,B):-
+	isaStrict(A,B);
+	isa2(A,B).
+	
+isa2(A,B):-
+	commonName(A), \+(commonName(B)), hasCommonName(X,A), X = B;
+	\+(commonName(A)), commonName(B), hasCommonName(X,B), X = A;
+	commonName(A), \+(commonName(B)), hasCommonName(X,A), \+(X = B), \+(commonName(X)), isaStrict(X,B);
+	\+(commonName(A)), commonName(B), hasCommonName(X,B), \+(X = A), \+(commonName(X)), isaStrict(A,X);
+	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(commonName(X)), \+(commonName(Y)), X = Y;
+	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(X = Y), \+(commonName(X)), \+(commonName(Y)), isaStrict(X,Y).
+and(L,R) :- L,R.
+
+/*
+%Test: PassFail
+countSpecies(A, 0):-
+	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
+countSpecies(A, 1):-
+	species_com(A).
+countSpecies(A, A):-
+	isSpeciesOf_com(_,A),
+	countSpecies(A,N1),
+	A is N1 + 1.
+*/
+
+%Test: Pass-Fail
+/*
+rangesTo(?A, ?P).
+
+habitat(?A, ?B).
+
+food(?A, ?B).
+
+nesting(?A, ?B).
+
+behavior(?A, ?B).
+
+conservation(?A, ?B).*/
