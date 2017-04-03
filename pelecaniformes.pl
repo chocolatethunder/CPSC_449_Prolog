@@ -244,10 +244,10 @@ species(A):-
 species_com(A):-
 	A = pelecanus_erythrorhynchos;	% Alberta
 	A = pelecanus_occidentalis;		% not in Canada
-	A = botaurus_lentiginosus;		% Alberta
+	A = botaurus_lentiginosus;		% Alberta (Confirmed)
 	A = ixobrychus_exilis;			% Canada ?
 	A = ardea_herodias;				% Alberta
-	A = ardea_alba;					% Alberta
+	A = ardea_alba;					% Canada (Confirmed)
 	A = egretta_thula;				% Alberta
 	A = egretta_caerulea;			% Alberta
 	A = egretta_tricolor;			% Canada
@@ -259,7 +259,7 @@ species_com(A):-
 	A = eudocimus_albus;			% Canada
 	A = plegadis_falcinellus;		% Canada
 	A = plegadis_chihi;				% Alberta
-	A = platalea_ajaja.				% not in Canada
+	A = platalea_ajaja.				% not in Canada (Confirmed)
 
 hasCommonName_gen(N,C):-
 	N = pelecanus,C = pelican;
@@ -379,18 +379,49 @@ isa2(A,B):-
 	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(X = Y), \+(commonName(X)), \+(commonName(Y)), isaStrict(X,Y).
 and(L,R) :- L,R.
 
-%Test: Pass/*Fail
+%Test: Pass
+%-------------countSpecies(A, N)-Start-------------
 countSpecies(A, 0):-
 	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
+	
 countSpecies(A, 1):-
 	species_com(A).
+	
 countSpecies(A, N):-
-	isSpeciesOf_com(X,A),
-	countSpecies(A,N1),
-	N is N1 + 1.
+	order(A) -> loop_order(A, N);
+	family(A) -> loop_family(A, N);
+	genus(A),
+	findall(X,isSpeciesOf_com(X,A),Z),
+	len(Z,N).
 
+len([],0).
+len([_|T],X):-
+	len(T,X1),
+	X is X1 + 1.
+
+loop_order(A,N):-
+	findall(X,isFamilyOf(X,A),Z),
+	loop_st(Z,N).
+
+loop_st([],0).
+loop_st([H|T],N):-
+	loop_family(H,A),
+	loop_st(T,B),
+	N is B + A.
+
+loop_family(A,N):-
+	findall(X,isGenusOf(X,A),Z),
+	loop_list(Z,N).
+
+loop_list([],0).
+loop_list([H|T],N):-
+	countSpecies(H, B),
+	loop_list(T,A),
+	N is B + A.
+%-------------countSpecies(A, N)-end-------------
 
 /*
+
 %Test: Pass/Fail
 rangesTo(A, P).
 
