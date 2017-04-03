@@ -368,7 +368,7 @@ synonym(A,B):-
 %Test: Pass/*Fail(partially fail)
 isa(A,B):-
 	isaStrict(A,B);
-	isa2(A,B).
+	(\+atomic(A), \+atomic(B), isa2(A,B)).
 	
 isa2(A,B):-
 	commonName(A), \+(commonName(B)), hasCommonName(X,A), X = B;
