@@ -367,17 +367,15 @@ synonym(A,B):-
 
 %Test: Pass/*Fail(partially fail)
 isa(A,B):-
-	isaStrict(A,B);
+	var(A),\+commonName(B)-> isaStrict(A,B);
+	\+commonName(A),var(B) -> isaStrict(A,B);
+	\+commonName(A),\+commonName(B),nonvar(A),nonvar(B) -> isaStrict(A,B);
 	isa2(A,B).
 	
 isa2(A,B):-
-	commonName(A), \+(commonName(B)), hasCommonName(X,A), X = B;
-	\+(commonName(A)), commonName(B), hasCommonName(X,B), X = A;
-	commonName(A), \+(commonName(B)), hasCommonName(X,A), \+(X = B), \+(commonName(X)), isaStrict(X,B);
-	\+(commonName(A)), commonName(B), hasCommonName(X,B), \+(X = A), \+(commonName(X)), isaStrict(A,X);
-	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(commonName(X)), \+(commonName(Y)), X = Y;
-	commonName(A), commonName(B), hasCommonName(X,A), hasCommonName(Y,B), \+(X = Y), \+(commonName(X)), \+(commonName(Y)), isaStrict(X,Y).
-and(L,R) :- L,R.
+	hasCommonName(X,A),isaStrict(X,B);
+	hasCommonName(X,B),isaStrict(A,X);
+	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
 
 %Test: Pass
 %-------------countSpecies(A, N)-Start-------------
@@ -419,6 +417,30 @@ loop_list([H|T],N):-
 	loop_list(T,A),
 	N is B + A.
 %-------------countSpecies(A, N)-end-------------
+
+rangesTo2(A,B):-
+	isSpeciesOf_com(X,A), rangesTo_db(X,B);
+	isGenusOf(X,A),isSpeciesOf_com(Y,X),rangesTo_db(Y,B);
+	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),rangesTo_db(Z,B).
+
+rangesTo_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = alberta;
+	N = pelecanus_erythrorhynchos,C = canada;
+	N = botaurus_lentiginosus,C = alberta;
+	N = botaurus_lentiginosus,C = canada;
+	N = ardea_herodias,C = alberta; 
+	N = ardea_herodias,C = canada;
+	N = ardea_alba,C = canada;
+	N = bubulcus_ibis,C = canada;
+	N = butorides_virescens,C = canada;
+	N = nycticorax_nycticorax,C = alberta;
+	N = nycticorax_nycticorax,C = canada.
+	
+rangesTo(A,B):-
+	var(A) -> rangesTo_db(A,B);
+	var(B),species_com(A) -> rangesTo_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> rangesTo_db(A,B);
+	rangesTo2(A,B).	
 	
 habitat2(A, B):-
 	isSpeciesOf_com(X,A), habitat_db(X,B);
@@ -444,7 +466,6 @@ habitat_db(N,C):-
 	N = plegadis_falcinellus,C = marsh;
 	N = plegadis_chihi,C = marsh;
 	N = platalea_ajaja,C = marsh.
-
 
 habitat(A,B):-
 	var(A) -> habitat_db(A,B);
@@ -587,8 +608,3 @@ conservation(A,B):-
 	var(B),species_com(A) -> conservation_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> conservation_db(A,B);
 	conservation2(A,B).
-/*
-
-%Test: Pass/Fail
-rangesTo(A, P).
-*/
