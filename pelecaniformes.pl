@@ -1,118 +1,5 @@
-/*pelecaniformes
-
-        pelecanidae
-                pelecanus (pelican)
-                        erythrorhynchos (americanWhitePelican)
-                        occidentalis (brownPelican)
-
-        ardeidae
-                botaurus (bittern)
-                        lentiginosus (americanBittern)
-                ixobrychus (bittern)
-                        exilis (leastBittern)
-                ardea (heron)
-                        herodias (greatBlueHeron)
-                        alba (greatEgret)
-                egretta (heron, egret)
-                        thula (snowyEgret)
-                        caerulea (littleBlueHeron)
-                        tricolor (tricoloredHeron)
-                        rufescens (reddishEgret)
-                bubulcus (egret)
-                        ibis (cattleEgret)
-                butorides (heron)
-                        virescens (greenHeron)
-                nycticorax (nightHeron)
-                        nycticorax (blackCrownedNightHeron)
-                nyctanassa (nightHeron)
-                        violacea (yellowCrownedNightHeron)
-
-        threskiornithidae
-                eudocimus (ibis)
-                        albus (whiteIbis)
-                plegadis (ibis)
-                        falcinellus (glossyIbis)
-                        chihi (whiteFacedIbis)
-                platalea (spoonbill)
-                        ajaja (roseateSpoonbill)*/
-                        
-/*
-
-isFamilyOf(pelecanidae,pelecaniformes).
-isFamilyOf(ardeidae,pelecaniformes).
-isFamilyOf(threskiornithidae,pelecaniformes).
-
-family(pelecanidae).
-family(ardeidae).
-family(threskiornithidae).
-
-isGenusOf(pelecanus,pelecanidae).
-isGenusOf(botaurus,ardeidae).
-isGenusOf(ixobrychus,ardeidae).
-isGenusOf(ardea,ardeidae).
-isGenusOf(egretta,ardeidae).
-isGenusOf(bubulcus,ardeidae).
-isGenusOf(butorides,ardeidae).
-isGenusOf(nycticorax,ardeidae).
-isGenusOf(nyctanassa,ardeidae).
-isGenusOf(eudocimus,threskiornithidae).
-isGenusOf(plegadis,threskiornithidae).
-isGenusOf(platalea,threskiornithidae).
-
-genus(pelecanus).
-genus(botaurus).
-genus(ixobrychus).
-genus(ardea).
-genus(egretta).
-genus(bubulcus).
-genus(butorides).
-genus(nycticorax).
-genus(nyctanassa).
-genus(eudocimus).
-genus(plegadis).
-genus(platalea).
-
-isSpeciesOf(erythrorhynchos,pelecanus).
-isSpeciesOf(occidentalis,pelecanus).
-isSpeciesOf(lentiginosus,botaurus).
-isSpeciesOf(exilis,ixobrychus).
-isSpeciesOf(herodias,ardea).
-isSpeciesOf(alba,ardea).
-isSpeciesOf(thula,egretta).
-isSpeciesOf(caerulea,egretta).
-isSpeciesOf(tricolor,egretta).
-isSpeciesOf(rufescens,egretta).
-isSpeciesOf(ibis,bubulcus).
-isSpeciesOf(virescens,butorides).
-isSpeciesOf(nycticorax,nycticorax).
-isSpeciesOf(violacea,nyctanassa).
-isSpeciesOf(albus,eudocimus).
-isSpeciesOf(falcinellus,plegadis).
-isSpeciesOf(chihi,plegadis).
-isSpeciesOf(ajaja,platalea).
-
-species(erythrorhynchos).
-species(occidentalis).
-species(lentiginosus).
-species(exilis).
-species(herodias).
-species(alba).
-species(thula).
-species(caerulea).
-species(tricolor).
-species(rufescens).
-species(ibis).
-species(virescens).
-species(nycticorax).
-species(violacea).
-species(albus).
-species(falcinellus).
-species(chihi).
-species(ajaja).
-*/
-
-% Data Base starts.
-
+/*--------------------------------------Data-Base-Starts-----------------------------------*/
+/* This predicate is used to determine if the input is a common name */
 commonName(A):-
 	A = pelican;
 	A = americanWhitePelican;
@@ -140,19 +27,14 @@ commonName(A):-
 	A = whiteFacedIbis;
 	A = spoonbill;
 	A = roseateSpoonbill.
-              
-order(pelecaniformes).
 
+/* This predicate checks if the input is a correct family under it's order */
 isFamilyOf(A,B):-
 	A = pelecanidae,B = pelecaniformes;
 	A = ardeidae,B = pelecaniformes;
 	A = threskiornithidae,B = pelecaniformes.
 
-family(A):-
-	A = pelecanidae;
-	A = ardeidae;
-	A = threskiornithidae.
-
+/* This predicate checks if the input is a correct genus under it's family */
 isGenusOf(A,B):-
 	A = pelecanus,B = pelecanidae;
 	A = botaurus,B = ardeidae;
@@ -167,20 +49,8 @@ isGenusOf(A,B):-
 	A = plegadis,B = threskiornithidae;
 	A = platalea,B = threskiornithidae.
 
-genus(A):-
-	A = pelecanus;
-	A = botaurus;
-	A = ixobrychus;
-	A = ardea;
-	A = egretta;
-	A = bubulcus;
-	A = butorides;
-	A = nycticorax;
-	A = nyctanassa;
-	A = eudocimus;
-	A = plegadis;
-	A = platalea.
 
+/* This predicate checks if the input is a correct species raw name under it's genus */
 isSpeciesOf(A,B):-
 	A = erythrorhynchos,B = pelecanus;
 	A = occidentalis,B = pelecanus;
@@ -200,7 +70,8 @@ isSpeciesOf(A,B):-
 	A = falcinellus,B = plegadis;
 	A = chihi,B = plegadis;
 	A = ajaja,B = platalea.
-	
+
+/* This predicate checks if the input is a correct species compound name under it's genus */
 isSpeciesOf_com(A,B):-
 	A = pelecanus_erythrorhynchos,B = pelecanus;
 	A = pelecanus_occidentalis,B = pelecanus;
@@ -220,47 +91,29 @@ isSpeciesOf_com(A,B):-
 	A = plegadis_falcinellus,B = plegadis;
 	A = plegadis_chihi,B = plegadis;
 	A = platalea_ajaja,B = platalea.
-
-species(A):-
-	A = erythrorhynchos;
-	A = occidentalis;
-	A = lentiginosus;
-	A = exilis;
-	A = herodias;
-	A = alba;
-	A = thula;
-	A = caerulea;
-	A = tricolor;
-	A = rufescens;
-	A = ibis;
-	A = virescens;
-	A = nycticorax;
-	A = violacea;
-	A = albus;
-	A = falcinellus;
-	A = chihi;
-	A = ajaja.
 	
+/* This predicate checks if A is a correct compound name of species */
 species_com(A):-
-	A = pelecanus_erythrorhynchos;	% Alberta
-	A = pelecanus_occidentalis;		% not in Canada
-	A = botaurus_lentiginosus;		% Alberta (Confirmed)
-	A = ixobrychus_exilis;			% Canada ?
-	A = ardea_herodias;				% Alberta
-	A = ardea_alba;					% Canada (Confirmed)
-	A = egretta_thula;				% Alberta
-	A = egretta_caerulea;			% Alberta
-	A = egretta_tricolor;			% Canada
-	A = egretta_rufescens;			% not in Canada
-	A = bubulcus_ibis;				% Alberta
-	A = butorides_virescens;		% Canada
-	A = nycticorax_nycticorax;		% Alberta
-	A = nyctanassa_violacea;		% Canada
-	A = eudocimus_albus;			% Canada
-	A = plegadis_falcinellus;		% Canada
-	A = plegadis_chihi;				% Alberta
-	A = platalea_ajaja.				% not in Canada (Confirmed)
+	A = pelecanus_erythrorhynchos;
+	A = pelecanus_occidentalis;
+	A = botaurus_lentiginosus;
+	A = ixobrychus_exilis;
+	A = ardea_herodias;
+	A = ardea_alba;
+	A = egretta_thula;
+	A = egretta_caerulea;
+	A = egretta_tricolor;
+	A = egretta_rufescens;
+	A = bubulcus_ibis;
+	A = butorides_virescens;
+	A = nycticorax_nycticorax;
+	A = nyctanassa_violacea;
+	A = eudocimus_albus;
+	A = plegadis_falcinellus;
+	A = plegadis_chihi;
+	A = platalea_ajaja.
 
+/* This predicate checks if N (genus) has a common name C ( and vice versa ) */
 hasCommonName_gen(N,C):-
 	N = pelecanus,C = pelican;
 	N = botaurus,C = bittern;
@@ -276,6 +129,7 @@ hasCommonName_gen(N,C):-
 	N = plegadis,C = ibis;
 	N = platalea,C = spoonbill.
 
+/* This predicate checks if N (species compound name) has a common name C ( and vice versa ) */
 hasCommonName_com(N,C):-
 	N = pelecanus_erythrorhynchos,C = americanWhitePelican;
 	N = pelecanus_occidentalis,C = brownPelican;
@@ -296,6 +150,7 @@ hasCommonName_com(N,C):-
 	N = plegadis_chihi,C = whiteFacedIbis;
 	N = platalea_ajaja,C = roseateSpoonbill.
 
+/* This predicate checks if N (species raw name) has a common name C ( and vice versa ) */
 hasCommonName_raw(N,C):-
 	N = erythrorhynchos,C = americanWhitePelican;
 	N = occidentalis,C = brownPelican;
@@ -316,37 +171,91 @@ hasCommonName_raw(N,C):-
 	N = chihi,C = whiteFacedIbis;
 	N = ajaja,C = roseateSpoonbill.
 
-% Data Base ends
+/*--------------------------------------Data-Base-Ends-------------------------------------*/
+
+/* A is the name of an order */      
+order(A):-
+	A = pelecaniformes.
 	
+/* A is the name of a family */
+family(A):-
+	A = pelecanidae;
+	A = ardeidae;
+	A = threskiornithidae.
+
+/* A is the name of genus */
+genus(A):-
+	A = pelecanus;
+	A = botaurus;
+	A = ixobrychus;
+	A = ardea;
+	A = egretta;
+	A = bubulcus;
+	A = butorides;
+	A = nycticorax;
+	A = nyctanassa;
+	A = eudocimus;
+	A = plegadis;
+	A = platalea.
+
+/* A is the raw name of species */
+species(A):-
+	A = erythrorhynchos;
+	A = occidentalis;
+	A = lentiginosus;
+	A = exilis;
+	A = herodias;
+	A = alba;
+	A = thula;
+	A = caerulea;
+	A = tricolor;
+	A = rufescens;
+	A = ibis;
+	A = virescens;
+	A = nycticorax;
+	A = violacea;
+	A = albus;
+	A = falcinellus;
+	A = chihi;
+	A = ajaja.
+
 %Test: Pass
+/* B(order, family, genus) is a direct parent of A(order, family, genus, or raw species name) */
 hasParent(A,B):-
 	isSpeciesOf(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
 %Test: Pass
+/* B(order, family, genus) is a direct parent of A(order, family, genus, or compound species name) */
 hasParent2(A, B):-
 	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
 %Test: Pass
+/* N has a common name C */
 hasCommonName(N, C):-
 	hasCommonName_gen(N,C);
 	hasCommonName_com(N,C).
 
 %Test: Pass
+/* The species described by the genus G and raw species name S has a common name C */
 hasCommonName(G,S,C):-
 	isSpeciesOf(S,G), hasCommonName_raw(S,C).
 
 %Test: Pass
+/* N is a compound name for some species that has a common name C
+or N is an order, family, or genus that has a common name C */
 hasSciName(C,N):-
 	hasCommonName_com(N,C);
 	hasCommonName_gen(N,C).
 
 %Test: Pass
+/* N is a the compound name for the genus G and species S */
 hasCompoundName(G,S,N):-
 	isSpeciesOf(S,G),
 	hasCommonName(G,S,C),
 	hasCommonName(N,C).
 
 %Test: Pass
+/* B is an ancestor of A */
 isaStrict(A,B):-
 	family(A),family(B),A = B;
 	order(A),order(B),A = B;
@@ -360,18 +269,21 @@ isaStrict(A,B):-
 	isSpeciesOf_com(A,B).
 
 %Test: Pass
+/* A is common name of scientific name B or vice versa */
 synonym(A,B):-
 	hasCommonName(B,A), \+(A=B);
 	hasCommonName(A,B), \+(A=B);
 	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
 
-%Test: Pass/*Fail(partially fail)
+%Test: Pass
+/* B(can be common name) is an ancestor of A(can be common name) */
 isa(A,B):-
 	var(A),\+commonName(B)-> isaStrict(A,B);
 	\+commonName(A),var(B) -> isaStrict(A,B);
 	\+commonName(A),\+commonName(B),nonvar(A),nonvar(B) -> isaStrict(A,B);
 	isa2(A,B).
-	
+
+/* used for isa(A,B) */
 isa2(A,B):-
 	commonName(A),var(B) -> hasCommonName(X,A),isaStrict(X,B);
 	commonName(B),var(A) -> hasCommonName(X,B),isaStrict(A,X);
@@ -382,6 +294,13 @@ isa2(A,B):-
  
 %Test: Pass
 %-------------countSpecies(A, N)-Start-------------
+/* Order, family, genus, or species A has N species */
+
+len([],0).
+len([_|T],X):-
+	len(T,X1),
+	X is X1 + 1.
+	
 countSpecies(A, 0):-
 	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
 	
@@ -394,11 +313,6 @@ countSpecies(A, N):-
 	genus(A),
 	findall(X,isSpeciesOf_com(X,A),Z),
 	len(Z,N).
-
-len([],0).
-len([_|T],X):-
-	len(T,X1),
-	X is X1 + 1.
 
 loop_order(A,N):-
 	findall(X,isFamilyOf(X,A),Z),
@@ -421,11 +335,21 @@ loop_list([H|T],N):-
 	N is B + A.
 %-------------countSpecies(A, N)-end-------------
 
+%Test: Pass
+/* (bird) A's range extends to P, where P may be either canada or alberta */
+rangesTo(A,B):-
+	var(A) -> rangesTo_db(A,B);
+	var(B),species_com(A) -> rangesTo_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> rangesTo_db(A,B);
+	rangesTo2(A,B).
+
+/* used for rangesTo(A,B) */
 rangesTo2(A,B):-
 	isSpeciesOf_com(X,A), rangesTo_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),rangesTo_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),rangesTo_db(Z,B).
 
+/* Data base used for rangesTo(A,B) */
 rangesTo_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = alberta;
 	N = pelecanus_erythrorhynchos,C = canada;
@@ -438,18 +362,22 @@ rangesTo_db(N,C):-
 	N = butorides_virescens,C = canada;
 	N = nycticorax_nycticorax,C = alberta;
 	N = nycticorax_nycticorax,C = canada.
-	
-rangesTo(A,B):-
-	var(A) -> rangesTo_db(A,B);
-	var(B),species_com(A) -> rangesTo_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> rangesTo_db(A,B);
-	rangesTo2(A,B).	
-	
+
+%Test: Pass
+/* (bird) A prefers a habitat of B, where B is lakePond, ocean, or marsh */
+habitat(A,B):-
+	var(A) -> habitat_db(A,B);
+	var(B),species_com(A) -> habitat_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> habitat_db(A,B);
+	habitat2(A,B).
+
+/* used for habitat(A,B) */
 habitat2(A, B):-
 	isSpeciesOf_com(X,A), habitat_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),habitat_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),habitat_db(Z,B).
 
+/* Data base used for habitat(A,B) */
 habitat_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = lakePond;
 	N = pelecanus_occidentalis,C = ocean;
@@ -470,20 +398,21 @@ habitat_db(N,C):-
 	N = plegadis_chihi,C = marsh;
 	N = platalea_ajaja,C = marsh.
 
-habitat(A,B):-
-	var(A) -> habitat_db(A,B);
-	var(B),species_com(A) -> habitat_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> habitat_db(A,B);
-	habitat2(A,B).
+%Test: Pass
+/* (bird) A prefers to eat B, where B is fish or insects */
+food(A,B):-
+	var(A) -> food_db(A,B);
+	var(B),species_com(A) -> food_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> food_db(A,B);
+	food2(A,B).
 
-%Test: Partially Fail
+/* used for food(A,B) */
 food2(A,B):-
 	isSpeciesOf_com(X,A), food_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),food_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),food_db(Z,B).
 
-% DONE
-% fish or insects
+/* Data base used for food(A,B) */
 food_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = fish;
 	N = pelecanus_occidentalis,C = fish;
@@ -504,20 +433,21 @@ food_db(N,C):-
 	N = plegadis_chihi,C = insects;
 	N = platalea_ajaja,C = fish.
 
-food(A,B):-
-	var(A) -> food_db(A,B);
-	var(B),species_com(A) -> food_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> food_db(A,B);
-	food2(A,B).
+%Test: Pass
+/* (bird) A prefers to nest in B, where B is ground or tree */
+nesting(A,B):-
+	var(A) -> nesting_db(A,B);
+	var(B),species_com(A) -> nesting_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> nesting_db(A,B);
+	nesting2(A,B).
 
-%Test: Partially Fail
+/* used for nesting(A,B) */
 nesting2(A, B):-
 	isSpeciesOf_com(X,A), nesting_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),nesting_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),nesting_db(Z,B).
 
-% DONE
-% ground or tree
+/* Data base used for nesting(A,B) */
 nesting_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = ground;
 	N = pelecanus_occidentalis,C = tree;
@@ -537,21 +467,22 @@ nesting_db(N,C):-
 	N = plegadis_falcinellus,C = ground;
 	N = plegadis_chihi,C = ground;
 	N = platalea_ajaja,C = tree.
-	
-nesting(A,B):-
-	var(A) -> nesting_db(A,B);
-	var(B),species_com(A) -> nesting_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> nesting_db(A,B);
-	nesting2(A,B).
 
-%Test: Partially Fail
+%Test: Pass
+/* (bird) A exhibits feeding behavior B, where B is surfaceDive, aerialDive, stalking, groundForager, or probing */
+behavior(A,B):-
+	var(A) -> behavior_db(A,B);
+	var(B),species_com(A) -> behavior_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> behavior_db(A,B);
+	behavior2(A,B).
+	
+/* used for behavior(A,B) */
 behavior2(A, B):-
 	isSpeciesOf_com(X,A), behavior_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),behavior_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),behavior_db(Z,B).
-	
-% DONE
-% surfaceDive, aerialDive, stalking, groundForager, or probing
+
+/* Data base used for behavior(A,B) */
 behavior_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = surfaceDive;
 	N = pelecanus_occidentalis,C = aerialDive;
@@ -571,21 +502,22 @@ behavior_db(N,C):-
 	N = plegadis_falcinellus,C = probing;
 	N = plegadis_chihi,C = probing;
 	N = platalea_ajaja,C = probing.
-	
-behavior(A,B):-
-	var(A) -> behavior_db(A,B);
-	var(B),species_com(A) -> behavior_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> behavior_db(A,B);
-	behavior2(A,B).
 
-%Test: Partially Fail
+%Test: Pass
+/* (bird) A's conservation status is B, where B is lc (low concern) or nt (near threatened) */
+conservation(A,B):-
+	var(A) -> conservation_db(A,B);
+	var(B),species_com(A) -> conservation_db(A,B);
+	species_com(A),nonvar(A),nonvar(B) -> conservation_db(A,B);
+	conservation2(A,B).
+
+/* used for conservation(A,B) */
 conservation2(A,B):-
 	isSpeciesOf_com(X,A), conservation_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),conservation_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),conservation_db(Z,B).
 
-% DONE
-% lc (low concern) or nt (near threatened)
+/* Data base used for conservation(A,B) */
 conservation_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = lc;
 	N = pelecanus_occidentalis,C = lc;
@@ -605,9 +537,3 @@ conservation_db(N,C):-
 	N = plegadis_falcinellus,C = lc;
 	N = plegadis_chihi,C = lc;
 	N = platalea_ajaja,C = lc.
-
-conservation(A,B):-
-	var(A) -> conservation_db(A,B);
-	var(B),species_com(A) -> conservation_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> conservation_db(A,B);
-	conservation2(A,B).
