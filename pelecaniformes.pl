@@ -373,10 +373,13 @@ isa(A,B):-
 	isa2(A,B).
 	
 isa2(A,B):-
-	hasCommonName(X,A),isaStrict(X,B);
-	hasCommonName(X,B),isaStrict(A,X);
+	commonName(A),var(B) -> hasCommonName(X,A),isaStrict(X,B);
+	commonName(B),var(A) -> hasCommonName(X,B),isaStrict(A,X);
+	commonName(A),\+commonName(B),nonvar(B) -> hasCommonName(X,A),isaStrict(X,B);
+	commonName(B),\+commonName(A),nonvar(A) -> hasCommonName(X,B),isaStrict(A,X);
+	commonName(A),commonName(B),nonvar(A),nonvar(B), A=B -> hasCommonName(X,A),hasCommonName(Y,B),X = Y;
 	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
-
+ 
 %Test: Pass
 %-------------countSpecies(A, N)-Start-------------
 countSpecies(A, 0):-
