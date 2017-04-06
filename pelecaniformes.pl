@@ -1,3 +1,12 @@
+/*
+Course: 	CPSC 449
+Professor: 	Rob Kremer
+Assignment:	Prolog
+Group #: 32
+Group members: Kowther Hassan, Matthew Mullins, Kaylee Stelter, Saurabh Tomar and Alan Lam
+*/
+
+
 /*--------------------------------------Data-Base-Starts-----------------------------------*/
 /* This predicate is used to determine if the input is a common name */
 commonName(A):-
@@ -171,6 +180,125 @@ hasCommonName_raw(N,C):-
 	N = chihi,C = whiteFacedIbis;
 	N = ajaja,C = roseateSpoonbill.
 
+/* Data base used for rangesTo(A,B) */
+rangesTo_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = alberta;
+	N = pelecanus_erythrorhynchos,C = canada;
+	N = botaurus_lentiginosus,C = alberta;
+	N = botaurus_lentiginosus,C = canada;
+	N = ardea_herodias,C = alberta; 
+	N = ardea_herodias,C = canada;
+	N = ardea_alba,C = canada;
+	N = bubulcus_ibis,C = canada;
+	N = butorides_virescens,C = canada;
+	N = nycticorax_nycticorax,C = alberta;
+	N = nycticorax_nycticorax,C = canada.
+
+/* Data base used for habitat(A,B) */
+habitat_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = lakePond;
+	N = pelecanus_occidentalis,C = ocean;
+	N = botaurus_lentiginosus,C = marsh;
+	N = ixobrychus_exilis,C = marsh;
+	N = ardea_herodias,C = marsh;
+	N = ardea_alba,C = marsh;
+	N = egretta_thula,C = marsh;
+	N = egretta_caerulea,C = marsh;
+	N = egretta_tricolor,C = marsh;
+	N = egretta_rufescens,C = marsh;
+	N = bubulcus_ibis,C = marsh;
+	N = butorides_virescens,C = marsh;
+	N = nycticorax_nycticorax,C = marsh;
+	N = nyctanassa_violacea,C = marsh;
+	N = eudocimus_albus,C = marsh;
+	N = plegadis_falcinellus,C = marsh;
+	N = plegadis_chihi,C = marsh;
+	N = platalea_ajaja,C = marsh.
+
+/* Data base used for food(A,B) */
+food_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = fish;
+	N = pelecanus_occidentalis,C = fish;
+	N = botaurus_lentiginosus,C = fish;
+	N = ixobrychus_exilis,C = fish;
+	N = ardea_herodias,C = fish;
+	N = ardea_alba,C = fish;
+	N = egretta_thula,C = fish;
+	N = egretta_caerulea,C = fish;
+	N = egretta_tricolor,C = fish;
+	N = egretta_rufescens,C = fish;
+	N = bubulcus_ibis,C = insects;
+	N = butorides_virescens,C = fish;
+	N = nycticorax_nycticorax,C = fish;
+	N = nyctanassa_violacea,C = insects;
+	N = eudocimus_albus,C = insects;
+	N = plegadis_falcinellus,C = insects;
+	N = plegadis_chihi,C = insects;
+	N = platalea_ajaja,C = fish.
+
+/* Data base used for nesting(A,B) */
+nesting_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = ground;
+	N = pelecanus_occidentalis,C = tree;
+	N = botaurus_lentiginosus,C = ground;
+	N = ixobrychus_exilis,C = ground;
+	N = ardea_herodias,C = tree;
+	N = ardea_alba,C = tree;
+	N = egretta_thula,C = tree;
+	N = egretta_caerulea,C = tree;
+	N = egretta_tricolor,C = tree;
+	N = egretta_rufescens,C = tree;
+	N = bubulcus_ibis,C = tree;
+	N = butorides_virescens,C = tree;
+	N = nycticorax_nycticorax,C = tree;
+	N = nyctanassa_violacea,C = tree;
+	N = eudocimus_albus,C = tree;
+	N = plegadis_falcinellus,C = ground;
+	N = plegadis_chihi,C = ground;
+	N = platalea_ajaja,C = tree.
+
+/* Data base used for behavior(A,B) */
+behavior_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = surfaceDive;
+	N = pelecanus_occidentalis,C = aerialDive;
+	N = botaurus_lentiginosus,C = stalking;
+	N = ixobrychus_exilis,C = stalking;
+	N = ardea_herodias,C = stalking;
+	N = ardea_alba,C = stalking;
+	N = egretta_thula,C = stalking;
+	N = egretta_caerulea,C = stalking;
+	N = egretta_tricolor,C = stalking;
+	N = egretta_rufescens,C = stalking;
+	N = bubulcus_ibis,C = groundForager;
+	N = butorides_virescens,C = stalking;
+	N = nycticorax_nycticorax,C = stalking;
+	N = nyctanassa_violacea,C = stalking;
+	N = eudocimus_albus,C = probing;
+	N = plegadis_falcinellus,C = probing;
+	N = plegadis_chihi,C = probing;
+	N = platalea_ajaja,C = probing.
+
+/* Data base used for conservation(A,B) */
+conservation_db(N,C):-
+	N = pelecanus_erythrorhynchos,C = lc;
+	N = pelecanus_occidentalis,C = lc;
+	N = botaurus_lentiginosus,C = lc;
+	N = ixobrychus_exilis,C = lc;
+	N = ardea_herodias,C = lc;
+	N = ardea_alba,C = lc;
+	N = egretta_thula,C = lc;
+	N = egretta_caerulea,C = lc;
+	N = egretta_tricolor,C = lc;
+	N = egretta_rufescens,C = nt;
+	N = bubulcus_ibis,C = lc;
+	N = butorides_virescens,C = lc;
+	N = nycticorax_nycticorax,C = lc;
+	N = nyctanassa_violacea,C = lc;
+	N = eudocimus_albus,C = lc;
+	N = plegadis_falcinellus,C = lc;
+	N = plegadis_chihi,C = lc;
+	N = platalea_ajaja,C = lc.
+
 /*--------------------------------------Data-Base-Ends-------------------------------------*/
 
 /* A is the name of an order */      
@@ -278,13 +406,9 @@ synonym(A,B):-
 %Test: Pass
 /* B(can be common name) is an ancestor of A(can be common name) */
 isa(A,B):-
-	var(A),\+commonName(B)-> isaStrict(A,B);
+	var(A),\+commonName(B) -> isaStrict(A,B);
 	\+commonName(A),var(B) -> isaStrict(A,B);
 	\+commonName(A),\+commonName(B),nonvar(A),nonvar(B) -> isaStrict(A,B);
-	isa2(A,B).
-
-/* used for isa(A,B) */
-isa2(A,B):-
 	commonName(A),var(B) -> hasCommonName(X,A),isaStrict(X,B);
 	commonName(B),var(A) -> hasCommonName(X,B),isaStrict(A,X);
 	commonName(A),\+commonName(B),nonvar(B) -> hasCommonName(X,A),isaStrict(X,B);
@@ -341,27 +465,9 @@ rangesTo(A,B):-
 	var(A) -> rangesTo_db(A,B);
 	var(B),species_com(A) -> rangesTo_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> rangesTo_db(A,B);
-	rangesTo2(A,B).
-
-/* used for rangesTo(A,B) */
-rangesTo2(A,B):-
 	isSpeciesOf_com(X,A), rangesTo_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),rangesTo_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),rangesTo_db(Z,B).
-
-/* Data base used for rangesTo(A,B) */
-rangesTo_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = alberta;
-	N = pelecanus_erythrorhynchos,C = canada;
-	N = botaurus_lentiginosus,C = alberta;
-	N = botaurus_lentiginosus,C = canada;
-	N = ardea_herodias,C = alberta; 
-	N = ardea_herodias,C = canada;
-	N = ardea_alba,C = canada;
-	N = bubulcus_ibis,C = canada;
-	N = butorides_virescens,C = canada;
-	N = nycticorax_nycticorax,C = alberta;
-	N = nycticorax_nycticorax,C = canada.
 
 %Test: Pass
 /* (bird) A prefers a habitat of B, where B is lakePond, ocean, or marsh */
@@ -369,34 +475,9 @@ habitat(A,B):-
 	var(A) -> habitat_db(A,B);
 	var(B),species_com(A) -> habitat_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> habitat_db(A,B);
-	habitat2(A,B).
-
-/* used for habitat(A,B) */
-habitat2(A, B):-
 	isSpeciesOf_com(X,A), habitat_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),habitat_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),habitat_db(Z,B).
-
-/* Data base used for habitat(A,B) */
-habitat_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = lakePond;
-	N = pelecanus_occidentalis,C = ocean;
-	N = botaurus_lentiginosus,C = marsh;
-	N = ixobrychus_exilis,C = marsh;
-	N = ardea_herodias,C = marsh;
-	N = ardea_alba,C = marsh;
-	N = egretta_thula,C = marsh;
-	N = egretta_caerulea,C = marsh;
-	N = egretta_tricolor,C = marsh;
-	N = egretta_rufescens,C = marsh;
-	N = bubulcus_ibis,C = marsh;
-	N = butorides_virescens,C = marsh;
-	N = nycticorax_nycticorax,C = marsh;
-	N = nyctanassa_violacea,C = marsh;
-	N = eudocimus_albus,C = marsh;
-	N = plegadis_falcinellus,C = marsh;
-	N = plegadis_chihi,C = marsh;
-	N = platalea_ajaja,C = marsh.
 
 %Test: Pass
 /* (bird) A prefers to eat B, where B is fish or insects */
@@ -404,34 +485,9 @@ food(A,B):-
 	var(A) -> food_db(A,B);
 	var(B),species_com(A) -> food_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> food_db(A,B);
-	food2(A,B).
-
-/* used for food(A,B) */
-food2(A,B):-
 	isSpeciesOf_com(X,A), food_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),food_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),food_db(Z,B).
-
-/* Data base used for food(A,B) */
-food_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = fish;
-	N = pelecanus_occidentalis,C = fish;
-	N = botaurus_lentiginosus,C = fish;
-	N = ixobrychus_exilis,C = fish;
-	N = ardea_herodias,C = fish;
-	N = ardea_alba,C = fish;
-	N = egretta_thula,C = fish;
-	N = egretta_caerulea,C = fish;
-	N = egretta_tricolor,C = fish;
-	N = egretta_rufescens,C = fish;
-	N = bubulcus_ibis,C = insects;
-	N = butorides_virescens,C = fish;
-	N = nycticorax_nycticorax,C = fish;
-	N = nyctanassa_violacea,C = insects;
-	N = eudocimus_albus,C = insects;
-	N = plegadis_falcinellus,C = insects;
-	N = plegadis_chihi,C = insects;
-	N = platalea_ajaja,C = fish.
 
 %Test: Pass
 /* (bird) A prefers to nest in B, where B is ground or tree */
@@ -439,34 +495,9 @@ nesting(A,B):-
 	var(A) -> nesting_db(A,B);
 	var(B),species_com(A) -> nesting_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> nesting_db(A,B);
-	nesting2(A,B).
-
-/* used for nesting(A,B) */
-nesting2(A, B):-
 	isSpeciesOf_com(X,A), nesting_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),nesting_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),nesting_db(Z,B).
-
-/* Data base used for nesting(A,B) */
-nesting_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = ground;
-	N = pelecanus_occidentalis,C = tree;
-	N = botaurus_lentiginosus,C = ground;
-	N = ixobrychus_exilis,C = ground;
-	N = ardea_herodias,C = tree;
-	N = ardea_alba,C = tree;
-	N = egretta_thula,C = tree;
-	N = egretta_caerulea,C = tree;
-	N = egretta_tricolor,C = tree;
-	N = egretta_rufescens,C = tree;
-	N = bubulcus_ibis,C = tree;
-	N = butorides_virescens,C = tree;
-	N = nycticorax_nycticorax,C = tree;
-	N = nyctanassa_violacea,C = tree;
-	N = eudocimus_albus,C = tree;
-	N = plegadis_falcinellus,C = ground;
-	N = plegadis_chihi,C = ground;
-	N = platalea_ajaja,C = tree.
 
 %Test: Pass
 /* (bird) A exhibits feeding behavior B, where B is surfaceDive, aerialDive, stalking, groundForager, or probing */
@@ -474,34 +505,9 @@ behavior(A,B):-
 	var(A) -> behavior_db(A,B);
 	var(B),species_com(A) -> behavior_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> behavior_db(A,B);
-	behavior2(A,B).
-	
-/* used for behavior(A,B) */
-behavior2(A, B):-
 	isSpeciesOf_com(X,A), behavior_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),behavior_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),behavior_db(Z,B).
-
-/* Data base used for behavior(A,B) */
-behavior_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = surfaceDive;
-	N = pelecanus_occidentalis,C = aerialDive;
-	N = botaurus_lentiginosus,C = stalking;
-	N = ixobrychus_exilis,C = stalking;
-	N = ardea_herodias,C = stalking;
-	N = ardea_alba,C = stalking;
-	N = egretta_thula,C = stalking;
-	N = egretta_caerulea,C = stalking;
-	N = egretta_tricolor,C = stalking;
-	N = egretta_rufescens,C = stalking;
-	N = bubulcus_ibis,C = groundForager;
-	N = butorides_virescens,C = stalking;
-	N = nycticorax_nycticorax,C = stalking;
-	N = nyctanassa_violacea,C = stalking;
-	N = eudocimus_albus,C = probing;
-	N = plegadis_falcinellus,C = probing;
-	N = plegadis_chihi,C = probing;
-	N = platalea_ajaja,C = probing.
 
 %Test: Pass
 /* (bird) A's conservation status is B, where B is lc (low concern) or nt (near threatened) */
@@ -509,31 +515,6 @@ conservation(A,B):-
 	var(A) -> conservation_db(A,B);
 	var(B),species_com(A) -> conservation_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> conservation_db(A,B);
-	conservation2(A,B).
-
-/* used for conservation(A,B) */
-conservation2(A,B):-
 	isSpeciesOf_com(X,A), conservation_db(X,B);
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),conservation_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),conservation_db(Z,B).
-
-/* Data base used for conservation(A,B) */
-conservation_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = lc;
-	N = pelecanus_occidentalis,C = lc;
-	N = botaurus_lentiginosus,C = lc;
-	N = ixobrychus_exilis,C = lc;
-	N = ardea_herodias,C = lc;
-	N = ardea_alba,C = lc;
-	N = egretta_thula,C = lc;
-	N = egretta_caerulea,C = lc;
-	N = egretta_tricolor,C = lc;
-	N = egretta_rufescens,C = nt;
-	N = bubulcus_ibis,C = lc;
-	N = butorides_virescens,C = lc;
-	N = nycticorax_nycticorax,C = lc;
-	N = nyctanassa_violacea,C = lc;
-	N = eudocimus_albus,C = lc;
-	N = plegadis_falcinellus,C = lc;
-	N = plegadis_chihi,C = lc;
-	N = platalea_ajaja,C = lc.
