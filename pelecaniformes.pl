@@ -38,10 +38,10 @@ commonName(A):-
 	A = roseateSpoonbill.
 
 /* This predicate checks if the input is a correct family under it's order */
-isFamilyOf(A,B):-
-	A = pelecanidae,B = pelecaniformes;
-	A = ardeidae,B = pelecaniformes;
-	A = threskiornithidae,B = pelecaniformes.
+isFamilyOf(A, B):-
+	A = pelecanidae, B = pelecaniformes;
+	A = ardeidae, B = pelecaniformes;
+	A = threskiornithidae, B = pelecaniformes.
 
 /* This predicate checks if the input is a correct genus under it's family */
 isGenusOf(A,B):-
@@ -100,7 +100,7 @@ isSpeciesOf_com(A,B):-
 	A = plegadis_falcinellus,B = plegadis;
 	A = plegadis_chihi,B = plegadis;
 	A = platalea_ajaja,B = platalea.
-	
+
 /* This predicate checks if A is a correct compound name of species */
 species_com(A):-
 	A = pelecanus_erythrorhynchos;
@@ -186,7 +186,7 @@ rangesTo_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = canada;
 	N = botaurus_lentiginosus,C = alberta;
 	N = botaurus_lentiginosus,C = canada;
-	N = ardea_herodias,C = alberta; 
+	N = ardea_herodias,C = alberta;
 	N = ardea_herodias,C = canada;
 	N = ardea_alba,C = canada;
 	N = bubulcus_ibis,C = canada;
@@ -301,10 +301,10 @@ conservation_db(N,C):-
 
 /*--------------------------------------Data-Base-Ends-------------------------------------*/
 
-/* A is the name of an order */      
+/* A is the name of an order */
 order(A):-
 	A = pelecaniformes.
-	
+
 /* A is the name of a family */
 family(A):-
 	A = pelecanidae;
@@ -347,42 +347,41 @@ species(A):-
 	A = chihi;
 	A = ajaja.
 
-%Test: Pass
 /* B(order, family, genus) is a direct parent of A(order, family, genus, or raw species name) */
 hasParent(A,B):-
 	isSpeciesOf(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
-%Test: Pass
+
 /* B(order, family, genus) is a direct parent of A(order, family, genus, or compound species name) */
 hasParent2(A, B):-
 	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
-%Test: Pass
+
 /* N has a common name C */
 hasCommonName(N, C):-
 	hasCommonName_gen(N,C);
 	hasCommonName_com(N,C).
 
-%Test: Pass
+
 /* The species described by the genus G and raw species name S has a common name C */
 hasCommonName(G,S,C):-
 	isSpeciesOf(S,G), hasCommonName_raw(S,C).
 
-%Test: Pass
+
 /* N is a compound name for some species that has a common name C
 or N is an order, family, or genus that has a common name C */
 hasSciName(C,N):-
 	hasCommonName_com(N,C);
 	hasCommonName_gen(N,C).
 
-%Test: Pass
+
 /* N is a the compound name for the genus G and species S */
 hasCompoundName(G,S,N):-
 	isSpeciesOf(S,G),
 	hasCommonName(G,S,C),
 	hasCommonName(N,C).
 
-%Test: Pass
+
 /* B is an ancestor of A */
 isaStrict(A,B):-
 	family(A),family(B),A = B;
@@ -396,14 +395,14 @@ isaStrict(A,B):-
 	isGenusOf(A,B);
 	isSpeciesOf_com(A,B).
 
-%Test: Pass
+
 /* A is common name of scientific name B or vice versa */
 synonym(A,B):-
 	hasCommonName(B,A), \+(A=B);
 	hasCommonName(A,B), \+(A=B);
 	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
 
-%Test: Pass
+
 /* B(can be common name) is an ancestor of A(can be common name) */
 isa(A,B):-
 	var(A),\+commonName(B) -> isaStrict(A,B);
@@ -415,8 +414,8 @@ isa(A,B):-
 	commonName(B),\+commonName(A),nonvar(A) -> hasCommonName(X,B),isaStrict(A,X);
 	commonName(A),commonName(B),nonvar(A),nonvar(B), A=B -> hasCommonName(X,A),hasCommonName(Y,B),X = Y;
 	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
- 
-%Test: Pass
+
+
 %-------------countSpecies(A, N)-Start-------------
 /* Order, family, genus, or species A has N species */
 
@@ -424,13 +423,13 @@ len([],0).
 len([_|T],X):-
 	len(T,X1),
 	X is X1 + 1.
-	
+
 countSpecies(A, 0):-
 	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
-	
+
 countSpecies(A, 1):-
 	species_com(A).
-	
+
 countSpecies(A, N):-
 	order(A) -> loop_order(A, N);
 	family(A) -> loop_family(A, N);
@@ -459,7 +458,7 @@ loop_list([H|T],N):-
 	N is B + A.
 %-------------countSpecies(A, N)-end-------------
 
-%Test: Pass
+
 /* (bird) A's range extends to P, where P may be either canada or alberta */
 rangesTo(A,B):-
 	var(A) -> rangesTo_db(A,B);
@@ -469,7 +468,7 @@ rangesTo(A,B):-
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),rangesTo_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),rangesTo_db(Z,B).
 
-%Test: Pass
+
 /* (bird) A prefers a habitat of B, where B is lakePond, ocean, or marsh */
 habitat(A,B):-
 	var(A) -> habitat_db(A,B);
@@ -479,7 +478,7 @@ habitat(A,B):-
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),habitat_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),habitat_db(Z,B).
 
-%Test: Pass
+
 /* (bird) A prefers to eat B, where B is fish or insects */
 food(A,B):-
 	var(A) -> food_db(A,B);
@@ -489,7 +488,7 @@ food(A,B):-
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),food_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),food_db(Z,B).
 
-%Test: Pass
+
 /* (bird) A prefers to nest in B, where B is ground or tree */
 nesting(A,B):-
 	var(A) -> nesting_db(A,B);
@@ -499,7 +498,7 @@ nesting(A,B):-
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),nesting_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),nesting_db(Z,B).
 
-%Test: Pass
+
 /* (bird) A exhibits feeding behavior B, where B is surfaceDive, aerialDive, stalking, groundForager, or probing */
 behavior(A,B):-
 	var(A) -> behavior_db(A,B);
@@ -509,7 +508,7 @@ behavior(A,B):-
 	isGenusOf(X,A),isSpeciesOf_com(Y,X),behavior_db(Y,B);
 	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),behavior_db(Z,B).
 
-%Test: Pass
+
 /* (bird) A's conservation status is B, where B is lc (low concern) or nt (near threatened) */
 conservation(A,B):-
 	var(A) -> conservation_db(A,B);
