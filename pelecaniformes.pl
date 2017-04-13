@@ -371,13 +371,11 @@ hasCommonName(G,S,C):-
 /* N is a compound name for some species that has a common name C
 or N is an order, family, or genus that has a common name C */
 hasSciName(C,N):-
-	hasCommonName_com(N,C);
-	hasCommonName_gen(N,C).
+	hasCommonName(N,C).
 
 
 /* N is a the compound name for the genus G and species S */
 hasCompoundName(G,S,N):-
-	isSpeciesOf(S,G),
 	hasCommonName(G,S,C),
 	hasCommonName(N,C).
 
