@@ -387,11 +387,8 @@ isaStrict(A,B):-
 	species_com(A),species_com(B),A = B;
 	genus(A),genus(B),A = B;
 	isSpeciesOf_com(A,X),isGenusOf(X,Y),isFamilyOf(Y,B);
-	isGenusOf(A,Y),isFamilyOf(Y,B);
-	isSpeciesOf_com(A,X),isGenusOf(X,B);
-	isFamilyOf(A,B);
-	isGenusOf(A,B);
-	isSpeciesOf_com(A,B).
+	hasParent2(A,X),hasParent2(X,B);
+	hasParent2(A,B).
 
 
 /* A is common name of scientific name B or vice versa */
