@@ -429,14 +429,20 @@ nesting(A,B):-
 	species_com(A) -> nesting_db(A,B);
 	hasParent2(X,A), nesting(X,B).
 
-/* (bird) A exhibits feeding behavior B, where B is surfaceDive, aerialDive, stalking, groundForager, or probing. */
+/* This method returns what type of feeding behaviour a certain bird exhibits. 
+A - The compound species name, genus, family, or order or a bird (Not raw species name).
+B - The feeding behavior B where B is surfaceDive, aerialDive, stalking, groundForager, or probing.
+*/
 behavior(A,B):-
 	var(A) -> behavior_db(A,B);
 	var(B),species_com(A) -> behavior_db(A,B);
 	species_com(A) -> behavior_db(A,B);
 	hasParent2(X,A), behavior(X,B).
 
-/* (bird) A's conservation status is B, where B is lc (low concern) or nt (near threatened). */
+/* This method returns the conservation status of a given bird. Whether it is of low concern or near extinction. 
+A - The compound species name, genus, family, or order or a bird (Not raw species name).
+B - It is the conservation status such as lc(low concern) or nt(near threatened) 
+*/
 conservation(A,B):-
 	var(A) -> conservation_db(A,B);
 	var(B),species_com(A) -> conservation_db(A,B);
