@@ -3,7 +3,7 @@ Course: 	CPSC 449
 Professor: 	Rob Kremer
 Assignment:	Prolog
 Group #: 32
-Group members: Kowther Hassan, Alan Lam, Matthew Mullins, Kaylee Stelter, and Saurabh Tomar 
+Group members: Kowther Hassan, Alan Lam, Matthew Mullins, Kaylee Stelter, and Saurabh Tomar
 
 A simple biological database about the order Pelecaniformes (Pelicans,
 Herons, Ibises, and allies) in North America. This database is based on the
@@ -95,7 +95,7 @@ isSpeciesOf(A,B):-
 /* This predicate checks if the input is a correct species name under its genus.
 Param ComName is the compound species name.
 Param GenName is the genus.
-Param SpecName is the raw species name. 
+Param SpecName is the raw species name.
 */
 checkcom(ComName,GenName,SpecName):-
 	nonvar(ComName) -> atom_concat(GenName,Remain,ComName), genus(GenName),atom_concat(_,SpecName,Remain), species(SpecName);
@@ -104,7 +104,7 @@ checkcom(ComName,GenName,SpecName):-
 /* This predicate checks if the input is a correct species compound name under its genus.
    A is the compound species name and B is the genus. */
 isSpeciesOf_com(A,B):-
-	species(SpecName),genus(B),checkcom(A,B,SpecName),isSpeciesOf(SpecName,B).
+	genus(B),checkcom(A,B,SpecName),isSpeciesOf(SpecName,B).
 
 /* This predicate checks if A is a correct compound name of species. */
 species_com(A):-
@@ -151,7 +151,7 @@ hasCommonName_raw(N,C):-
 	N = chihi,C = whiteFacedIbis;
 	N = ajaja,C = roseateSpoonbill.
 
-/* Database used for rangesTo(A,B). 
+/* Database used for rangesTo(A,B).
 Param N is the species compound name
 Param C is the provincial/national range. */
 rangesTo_db(N,C):-
@@ -213,7 +213,7 @@ food_db(N,C):-
 	N = plegadis_chihi,C = insects;
 	N = platalea_ajaja,C = fish.
 
-/* Database used for nesting(A,B). 
+/* Database used for nesting(A,B).
 Param N is the species compound name
 Param C is the nesting ground for that species. */
 nesting_db(N,C):-
@@ -259,7 +259,7 @@ behavior_db(N,C):-
 	N = plegadis_chihi,C = probing;
 	N = platalea_ajaja,C = probing.
 
-/* Database used for conservation(A,B). 
+/* Database used for conservation(A,B).
 Param N is the species compound name
 Param C is the conservation status of the species.
 
@@ -292,22 +292,22 @@ conservation_db(N,C):-
 
 /*--------------------------------------Auxillary Methods End-------------------------------------*/
 
-/* Checks if A is a valid order name. 
-Param A - Order name. Cannot be a common name. 
+/* Checks if A is a valid order name.
+Param A - Order name. Cannot be a common name.
 */
 order(A):-
 	A = pelecaniformes.
 
-/* Checks if A is a valid family name. 
-Param A - Family name. Cannot be a common name. 
+/* Checks if A is a valid family name.
+Param A - Family name. Cannot be a common name.
 */
 family(A):-
 	A = pelecanidae;
 	A = ardeidae;
 	A = threskiornithidae.
 
-/* Checks if A is a valid genus name. 
-Param A - Genus name. Cannot be a common name. 
+/* Checks if A is a valid genus name.
+Param A - Genus name. Cannot be a common name.
 */
 genus(A):-
 	A = pelecanus;
@@ -323,8 +323,8 @@ genus(A):-
 	A = plegadis;
 	A = platalea.
 
-/* Checks if A is a valid species name. 
-Param A - RAW species name. Cannot be a common name or common name. 
+/* Checks if A is a valid species name.
+Param A - RAW species name. Cannot be a common name or common name.
 */
 species(A):-
 	A = erythrorhynchos;
@@ -346,7 +346,7 @@ species(A):-
 	A = chihi;
 	A = ajaja.
 
-/* This method checks if B is a direct parent of A. This version optionally takes a raw species name, but not a compound species name. 
+/* This method checks if B is a direct parent of A. This version optionally takes a raw species name, but not a compound species name.
 Param A - order, family, genus, or raw species name
 Param B - order, family, genus
 */
@@ -360,7 +360,7 @@ Param B - order, family, genus
 hasParent2(A, B):-
 	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
-/* This method checks N has a common name C. 
+/* This method checks N has a common name C.
 Param N - Either a Taxanomical Name or compound name if it is a species name
 Param C - The common name
 */
@@ -368,7 +368,7 @@ hasCommonName(N, C):-
 	hasCommonName_gen(N,C);
 	hasCommonName_com(N,C).
 
-/* This method checks whether a given a raw species name has a common name. 
+/* This method checks whether a given a raw species name has a common name.
 Param G - Genus of the species
 Param S - Raw species name for the species
 Param C - Common name of the species
@@ -376,14 +376,14 @@ Param C - Common name of the species
 hasCommonName(G,S,C):-
 	isSpeciesOf(S,G), hasCommonName_raw(S,C).
 
-/* This method checks if common name has a scientific name. 
-Param N - compound taxonomical (scientific) name, an order, family, or genus for some species 
-Param C - common name of the species. 
+/* This method checks if common name has a scientific name.
+Param N - compound taxonomical (scientific) name, an order, family, or genus for some species
+Param C - common name of the species.
 */
 hasSciName(C,N):-
 	hasCommonName(N,C).
 
-/* This method checks if N is a the compound name for the genus G and species S. 
+/* This method checks if N is a the compound name for the genus G and species S.
 Param G - Genus of the species
 Param S - Species name for the species
 Param N - The compound name being checked
@@ -414,9 +414,9 @@ isa(A,B):-
 	commonName(A),\+commonName(B) -> hasCommonName(X,A),isaStrict(X,B);
 	commonName(B),\+commonName(A) -> hasCommonName(X,B),isaStrict(A,X);
 	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
-	
+
 /* This method checks whether A is scientific name of B or vice versa. A and B cannot be the same.
-Param A - Either a Common Name and B is a Scientific Name (an order name, a family name, a genus name, or a compound species name) to check against 
+Param A - Either a Common Name and B is a Scientific Name (an order name, a family name, a genus name, or a compound species name) to check against
 Param B - Either a Common Name and A is a Scientific Name (an order name, a family name, a genus name, or a compound species name) to check against
 */
 synonym(A,B):-
@@ -450,7 +450,7 @@ countSpecies([H|T],Num,Count) :-
 
 %-------------countSpecies(A, N)-end-------------
 
-/* This method checks or returns the range of a bird can extend to. 
+/* This method checks or returns the range of a bird can extend to.
 A - (Variable or Atom) The compound species name, genus, family, or order or a bird (Not raw species name).
 R - The range type R wher R is canada or alberta.
 Returns the range if only Param A is provided.
@@ -462,7 +462,7 @@ rangesTo(A,R):-
 	species_com(A) -> rangesTo_db(A,R);
 	hasParent2(X,A), rangesTo(X,R).
 
-/* This method checks or returns the a bird's habitat. 
+/* This method checks or returns the a bird's habitat.
 A - The compound species name, genus, family, or order or a bird (Not raw species name).
 H - The habitat type H where H is lakePond, ocean, or marsh.
 Returns habitat type if only Param A is provided.
@@ -474,7 +474,7 @@ habitat(A,H):-
 	species_com(A) -> habitat_db(A,H);
 	hasParent2(X,A), habitat(X,H).
 
-/* This method checks or returns the prefered food for a bird. 
+/* This method checks or returns the prefered food for a bird.
 A - The compound species name, genus, family, or order or a bird (Not raw species name).
 F - The food type F where F is fish or insects.
 Returns prefered food if only Param A is provided.
@@ -486,7 +486,7 @@ food(A,F):-
 	species_com(A) -> food_db(A,F);
 	hasParent2(X,A), food(X,F).
 
-/* This method checks or returns the prefered nesting area for a bird. 
+/* This method checks or returns the prefered nesting area for a bird.
 Param A - The compound species name, genus, family, or order or a bird (Not raw species name).
 Param N - The nesting area N where N is ground or tree.
 Returns nesting area if only Param A is provided.
@@ -498,7 +498,7 @@ nesting(A,N):-
 	species_com(A) -> nesting_db(A,N);
 	hasParent2(X,A), nesting(X,N).
 
-/* This method checks or returns what type of feeding behaviour a certain bird exhibits. 
+/* This method checks or returns what type of feeding behaviour a certain bird exhibits.
 Param A - The compound species name, genus, family, or order or a bird (Not raw species name).
 Param B - The feeding behavior B where B is surfaceDive, aerialDive, stalking, groundForager, or probing.
 Returns feeding behavior if only Param A is provided.
@@ -510,7 +510,7 @@ behavior(A,B):-
 	species_com(A) -> behavior_db(A,B);
 	hasParent2(X,A), behavior(X,B).
 
-/* This method checks or returns the conservation status of a given bird. Whether it is of low concern or near extinction. 
+/* This method checks or returns the conservation status of a given bird. Whether it is of low concern or near extinction.
 Param A - The compound species name, genus, family, or order or a bird (Not raw species name).
 Param B - It is the conservation status such as lc(low concern) or nt(near threatened)
 Returns conservation status if only Param A is provided.
