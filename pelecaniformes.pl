@@ -443,7 +443,7 @@ countSpecies([H|T],Num,Count) :-
 rangesTo(A,B):-
 	var(A) -> rangesTo_db(A,B);
 	var(B),species_com(A) -> rangesTo_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> rangesTo_db(A,B);
+	species_com(A) -> rangesTo_db(A,B);
 	hasParent2(X,A), rangesTo(X,B).
 
 /* (bird) A prefers a habitat of B, where B is lakePond, ocean, or marsh */
