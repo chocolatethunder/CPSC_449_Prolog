@@ -3,7 +3,7 @@ Course: 	CPSC 449
 Professor: 	Rob Kremer
 Assignment:	Prolog
 Group #: 32
-Group members: Kowther Hassan, Matthew Mullins, Kaylee Stelter, Saurabh Tomar and Alan Lam
+Group members: Kowther Hassan, Alan Lam, Matthew Mullins, Kaylee Stelter, and Saurabh Tomar 
 
 A simple biological database about the order Pelecaniformes (Pelicans,
 Herons, Ibises, and allies) in North America. This database is based on the
