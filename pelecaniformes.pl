@@ -84,48 +84,18 @@ isSpeciesOf(A,B):-
 	A = chihi,B = plegadis;
 	A = ajaja,B = platalea.
 
-/* This predicate checks if the input is a correct species compound name under its genus.
-   A is a species COMPOUND name and B is the genus of that species. */
+/* This predicate checks if the input is a correct species compound name under its genus. */
+checkcom(ComName,GenName,SpecName):-
+	nonvar(ComName) -> atom_concat(GenName,Remain,ComName), genus(GenName),atom_concat(_,SpecName,Remain), species(SpecName);
+	atom_concat(GenName,'_',Temp),genus(GenName),species(SpecName),atom_concat(Temp,SpecName,ComName).
+
+/* This predicate checks if the input is a correct species compound name under its genus. */
 isSpeciesOf_com(A,B):-
-	A = pelecanus_erythrorhynchos,B = pelecanus;
-	A = pelecanus_occidentalis,B = pelecanus;
-	A = botaurus_lentiginosus,B = botaurus;
-	A = ixobrychus_exilis,B = ixobrychus;
-	A = ardea_herodias,B = ardea;
-	A = ardea_alba,B = ardea;
-	A = egretta_thula,B = egretta;
-	A = egretta_caerulea,B = egretta;
-	A = egretta_tricolor,B = egretta;
-	A = egretta_rufescens,B = egretta;
-	A = bubulcus_ibis,B = bubulcus;
-	A = butorides_virescens,B = butorides;
-	A = nycticorax_nycticorax,B = nycticorax;
-	A = nyctanassa_violacea,B = nyctanassa;
-	A = eudocimus_albus,B = eudocimus;
-	A = plegadis_falcinellus,B = plegadis;
-	A = plegadis_chihi,B = plegadis;
-	A = platalea_ajaja,B = platalea.
+	species(SpecName),genus(B),checkcom(A,B,SpecName),isSpeciesOf(SpecName,B).
 
 /* This predicate checks if A is a correct COMPOUND name of species. */
 species_com(A):-
-	A = pelecanus_erythrorhynchos;
-	A = pelecanus_occidentalis;
-	A = botaurus_lentiginosus;
-	A = ixobrychus_exilis;
-	A = ardea_herodias;
-	A = ardea_alba;
-	A = egretta_thula;
-	A = egretta_caerulea;
-	A = egretta_tricolor;
-	A = egretta_rufescens;
-	A = bubulcus_ibis;
-	A = butorides_virescens;
-	A = nycticorax_nycticorax;
-	A = nyctanassa_violacea;
-	A = eudocimus_albus;
-	A = plegadis_falcinellus;
-	A = plegadis_chihi;
-	A = platalea_ajaja.
+	isSpeciesOf_com(A,B),genus(B).
 
 /* This predicate checks if N (genus) has a common name C ( and vice versa ). */
 hasCommonName_gen(N,C):-
@@ -145,24 +115,7 @@ hasCommonName_gen(N,C):-
 
 /* This predicate checks if N (species compound name) has a common name C ( and vice versa ). */
 hasCommonName_com(N,C):-
-	N = pelecanus_erythrorhynchos,C = americanWhitePelican;
-	N = pelecanus_occidentalis,C = brownPelican;
-	N = botaurus_lentiginosus,C = americanBittern;
-	N = ixobrychus_exilis,C = leastBittern;
-	N = ardea_herodias,C = greatBlueHeron;
-	N = ardea_alba,C = greatEgret;
-	N = egretta_thula,C = snowyEgret;
-	N = egretta_caerulea,C = littleBlueHeron;
-	N = egretta_tricolor,C = tricoloredHeron;
-	N = egretta_rufescens,C = reddishEgret;
-	N = bubulcus_ibis,C = cattleEgret;
-	N = butorides_virescens,C = greenHeron;
-	N = nycticorax_nycticorax,C = blackCrownedNightHeron;
-	N = nyctanassa_violacea,C = yellowCrownedNightHeron;
-	N = eudocimus_albus,C = whiteIbis;
-	N = plegadis_falcinellus,C = glossyIbis;
-	N = plegadis_chihi,C = whiteFacedIbis;
-	N = platalea_ajaja,C = roseateSpoonbill.
+	species_com(N),checkcom(N,GenName,SpecName),isSpeciesOf(SpecName,GenName),hasCommonName_raw(SpecName,C).
 
 /* This predicate checks if N (species raw name) has a common name C ( and vice versa ). */
 hasCommonName_raw(N,C):-
