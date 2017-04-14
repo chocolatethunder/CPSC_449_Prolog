@@ -10,7 +10,7 @@ Herons, Ibises, and allies) in North America. This database is based on the
 data given in the Cornell Lab on Ornithology.
 */
 
-/*--------------------------------------Data-Base-Starts-----------------------------------*/
+/*--------------------------------------Auxillary Methods Start-----------------------------------*/
 /* This predicate is used to determine if the input is a common name. Written in this
    non-standard format for ease of reading. */
 commonName(A):-
@@ -42,14 +42,18 @@ commonName(A):-
 	A = roseateSpoonbill.
 
 /* This predicate checks if the input is a correct family under its order.
-   A is the family and B is the order.*/
+Param A is the family.
+Param B is the order.
+*/
 isFamilyOf(A, B):-
 	A = pelecanidae, B = pelecaniformes;
 	A = ardeidae, B = pelecaniformes;
 	A = threskiornithidae, B = pelecaniformes.
 
 /* This predicate checks if the input is a correct genus under its family.
-   A is the genus and B is the family. */
+Param A is the genus.
+Param B is the family.
+*/
 isGenusOf(A,B):-
 	A = pelecanus,B = pelecanidae;
 	A = botaurus,B = ardeidae;
@@ -65,7 +69,9 @@ isGenusOf(A,B):-
 	A = platalea,B = threskiornithidae.
 
 /* This predicate checks if the input is a correct species RAW name under its genus.
-   A is a species RAW name and B is the genus of that species. */
+Param A is a RAW species name.
+Param B is the genus.
+*/
 isSpeciesOf(A,B):-
 	A = erythrorhynchos,B = pelecanus;
 	A = occidentalis,B = pelecanus;
@@ -87,7 +93,10 @@ isSpeciesOf(A,B):-
 	A = ajaja,B = platalea.
 
 /* This predicate checks if the input is a correct species name under its genus.
-   ComName is the compound species name, GenName is the genus, SpecName is the raw species name. */
+Param ComName is the compound species name.
+Param GenName is the genus.
+Param SpecName is the raw species name. 
+*/
 checkcom(ComName,GenName,SpecName):-
 	nonvar(ComName) -> atom_concat(GenName,Remain,ComName), genus(GenName),atom_concat(_,SpecName,Remain), species(SpecName);
 	atom_concat(GenName,'_',Temp),genus(GenName),species(SpecName),atom_concat(Temp,SpecName,ComName).
@@ -97,11 +106,11 @@ checkcom(ComName,GenName,SpecName):-
 isSpeciesOf_com(A,B):-
 	species(SpecName),genus(B),checkcom(A,B,SpecName),isSpeciesOf(SpecName,B).
 
-/* This predicate checks if A is a correct COMPOUND name of species. */
+/* This predicate checks if A is a correct compound name of species. */
 species_com(A):-
 	isSpeciesOf_com(A,B),genus(B).
 
-/* This predicate checks if N (genus) has a common name C ( and vice versa ). */
+/* This predicate checks if N (genus) has a common name C (and vice versa). */
 hasCommonName_gen(N,C):-
 	N = pelecanus,C = pelican;
 	N = botaurus,C = bittern;
@@ -117,11 +126,11 @@ hasCommonName_gen(N,C):-
 	N = plegadis,C = ibis;
 	N = platalea,C = spoonbill.
 
-/* This predicate checks if N (species compound name) has a common name C ( and vice versa ). */
+/* This predicate checks if N (species compound name) has a common name C (and vice versa). */
 hasCommonName_com(N,C):-
 	species_com(N),checkcom(N,GenName,SpecName),isSpeciesOf(SpecName,GenName),hasCommonName_raw(SpecName,C).
 
-/* This predicate checks if N (species raw name) has a common name C ( and vice versa ). */
+/* This predicate checks if N (species raw name) has a common name C (and vice versa). */
 hasCommonName_raw(N,C):-
 	N = erythrorhynchos,C = americanWhitePelican;
 	N = occidentalis,C = brownPelican;
@@ -142,8 +151,9 @@ hasCommonName_raw(N,C):-
 	N = chihi,C = whiteFacedIbis;
 	N = ajaja,C = roseateSpoonbill.
 
-/* Database used for rangesTo(A,B). N is the species compound name and C
-   is the provincial/national range. */
+/* Database used for rangesTo(A,B). 
+Param N is the species compound name
+Param C is the provincial/national range. */
 rangesTo_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = alberta;
 	N = pelecanus_erythrorhynchos,C = canada;
@@ -157,8 +167,9 @@ rangesTo_db(N,C):-
 	N = nycticorax_nycticorax,C = alberta;
 	N = nycticorax_nycticorax,C = canada.
 
-/* Database used for habitat(A,B). N is the species compound name and
-   C is the habitat. */
+/* Database used for habitat(A,B).
+Param N is the species compound name
+Param C is the habitat. */
 habitat_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = lakePond;
 	N = pelecanus_occidentalis,C = ocean;
@@ -179,8 +190,9 @@ habitat_db(N,C):-
 	N = plegadis_chihi,C = marsh;
 	N = platalea_ajaja,C = marsh.
 
-/* Database used for food(A,B). N is the species compound name and
-   C is the typical diet of that species. */
+/* Database used for food(A,B).
+Param N is the species compound name
+Param C is the typical diet of that species. */
 food_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = fish;
 	N = pelecanus_occidentalis,C = fish;
@@ -201,8 +213,9 @@ food_db(N,C):-
 	N = plegadis_chihi,C = insects;
 	N = platalea_ajaja,C = fish.
 
-/* Database used for nesting(A,B). N is the species compound name and
-   C is the nesting ground for that species. */
+/* Database used for nesting(A,B). 
+Param N is the species compound name
+Param C is the nesting ground for that species. */
 nesting_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = ground;
 	N = pelecanus_occidentalis,C = tree;
@@ -223,8 +236,9 @@ nesting_db(N,C):-
 	N = plegadis_chihi,C = ground;
 	N = platalea_ajaja,C = tree.
 
-/* Database used for behavior(A,B). N is the species compound name and
-   C is the typical behavior for that species. */
+/* Database used for behavior(A,B).
+Param N is the species compound name
+Param C is the typical behavior for that species. */
 behavior_db(N,C):-
 	N = pelecanus_erythrorhynchos,C = surfaceDive;
 	N = pelecanus_occidentalis,C = aerialDive;
@@ -245,8 +259,9 @@ behavior_db(N,C):-
 	N = plegadis_chihi,C = probing;
 	N = platalea_ajaja,C = probing.
 
-/* Database used for conservation(A,B). N is the species compound name and
-   and C is the conservation status of the species.
+/* Database used for conservation(A,B). 
+Param N is the species compound name
+Param C is the conservation status of the species.
 
    lc -> least concern
    nt -> near threatened
@@ -275,19 +290,25 @@ conservation_db(N,C):-
 	N = plegadis_chihi,C = lc;
 	N = platalea_ajaja,C = lc.
 
-/*--------------------------------------Database-Ends-------------------------------------*/
+/*--------------------------------------Auxillary Methods End-------------------------------------*/
 
-/* A is the name of an order */
+/* Checks if A is a valid order name. 
+Param A - Order name. Cannot be a common name. 
+*/
 order(A):-
 	A = pelecaniformes.
 
-/* A is the name of a family */
+/* Checks if A is a valid family name. 
+Param A - Family name. Cannot be a common name. 
+*/
 family(A):-
 	A = pelecanidae;
 	A = ardeidae;
 	A = threskiornithidae.
 
-/* A is the name of genus */
+/* Checks if A is a valid genus name. 
+Param A - Genus name. Cannot be a common name. 
+*/
 genus(A):-
 	A = pelecanus;
 	A = botaurus;
@@ -302,7 +323,9 @@ genus(A):-
 	A = plegadis;
 	A = platalea.
 
-/* A is the RAW name of species */
+/* Checks if A is a valid species name. 
+Param A - RAW species name. Cannot be a common name or common name. 
+*/
 species(A):-
 	A = erythrorhynchos;
 	A = occidentalis;
@@ -323,27 +346,40 @@ species(A):-
 	A = chihi;
 	A = ajaja.
 
-/* B (order, family, genus) is a direct parent of A (order, family, genus, or raw species name).
-   This version optionally takes a raw species name, but not a compound species name. */
+/* This method checks if B is a direct parent of A. This version optionally takes a raw species name, but not a compound species name. 
+Param A - order, family, genus, or raw species name
+Param B - order, family, genus
+*/
 hasParent(A,B):-
 	isSpeciesOf(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
-/* B (order, family, genus) is a direct parent of A (order, family, genus, or compound species name).
-   This version optionally takes a compound species name, but not a raw species name. */
+/* This method checks if B is a direct parent of A.
+Param A - order, family, genus, or compound species name
+Param B - order, family, genus
+*/
 hasParent2(A, B):-
 	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
-/* N has a common name C. Allows for use of either a raw or compound species name. */
+/* This method checks N has a common name C. 
+Param N - Either a Taxanomical Name or compound name if it is a species name
+Param C - The common name
+*/
 hasCommonName(N, C):-
 	hasCommonName_gen(N,C);
 	hasCommonName_com(N,C).
 
-/* The species described by the genus G and raw species name S has a common name C. */
+/* This method checks whether a given a raw species name has a common name. 
+Param G - Genus of the species
+Param S - Raw species name for the species
+Param C - Common name of the species
+*/
 hasCommonName(G,S,C):-
 	isSpeciesOf(S,G), hasCommonName_raw(S,C).
 
-/* N is a compound taxonomical (scientific) name for some species that has a common name C
-   or N is an order, family, or genus that has a common name C. */
+/* This method checks if common name has a scientific name. 
+Param N - compound taxonomical (scientific) name, an order, family, or genus for some species 
+Param C - common name of the species. 
+*/
 hasSciName(C,N):-
 	hasCommonName(N,C).
 
