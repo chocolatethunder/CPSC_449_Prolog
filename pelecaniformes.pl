@@ -401,9 +401,8 @@ isa(A,B):-
 	\+commonName(A),\+commonName(B) -> isaStrict(A,B);
 	commonName(A),var(B) -> hasCommonName(X,A),isaStrict(X,B);
 	commonName(B),var(A) -> hasCommonName(X,B),isaStrict(A,X);
-	commonName(A),\+commonName(B),nonvar(B) -> hasCommonName(X,A),isaStrict(X,B);
-	commonName(B),\+commonName(A),nonvar(A) -> hasCommonName(X,B),isaStrict(A,X);
-	commonName(A),commonName(B),nonvar(A),nonvar(B), A=B -> hasCommonName(X,A),hasCommonName(Y,B),X = Y;
+	commonName(A),\+commonName(B) -> hasCommonName(X,A),isaStrict(X,B);
+	commonName(B),\+commonName(A) -> hasCommonName(X,B),isaStrict(A,X);
 	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
 
 
