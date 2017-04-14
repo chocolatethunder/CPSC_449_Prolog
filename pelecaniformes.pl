@@ -41,13 +41,15 @@ commonName(A):-
 	A = spoonbill;
 	A = roseateSpoonbill.
 
-/* This predicate checks if the input is a correct family under its order. */
+/* This predicate checks if the input is a correct family under its order.
+   A is the family and B is the order.*/
 isFamilyOf(A, B):-
 	A = pelecanidae, B = pelecaniformes;
 	A = ardeidae, B = pelecaniformes;
 	A = threskiornithidae, B = pelecaniformes.
 
-/* This predicate checks if the input is a correct genus under its family. */
+/* This predicate checks if the input is a correct genus under its family.
+   A is the genus and B is the family. */
 isGenusOf(A,B):-
 	A = pelecanus,B = pelecanidae;
 	A = botaurus,B = ardeidae;
@@ -84,12 +86,14 @@ isSpeciesOf(A,B):-
 	A = chihi,B = plegadis;
 	A = ajaja,B = platalea.
 
-/* This predicate checks if the input is a correct species compound name under its genus. */
+/* This predicate checks if the input is a correct species name under its genus.
+   ComName is the compound species name, GenName is the genus, SpecName is the raw species name. */
 checkcom(ComName,GenName,SpecName):-
 	nonvar(ComName) -> atom_concat(GenName,Remain,ComName), genus(GenName),atom_concat(_,SpecName,Remain), species(SpecName);
 	atom_concat(GenName,'_',Temp),genus(GenName),species(SpecName),atom_concat(Temp,SpecName,ComName).
 
-/* This predicate checks if the input is a correct species compound name under its genus. */
+/* This predicate checks if the input is a correct species compound name under its genus.
+   A is the compound species name and B is the genus. */
 isSpeciesOf_com(A,B):-
 	species(SpecName),genus(B),checkcom(A,B,SpecName),isSpeciesOf(SpecName,B).
 
