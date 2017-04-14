@@ -51,7 +51,7 @@ isFamilyOf(F, O):-
 	F = threskiornithidae, O = pelecaniformes.
 
 /* This predicate checks if the input is a correct genus under its family.
-Param A is the genus.
+Param G is the genus.
 Param F is the family.
 */
 isGenusOf(G,F):-
@@ -102,8 +102,8 @@ checkcom(ComName,GenName,SpecName):-
 	atom_concat(GenName,'_',Temp),genus(GenName),species(SpecName),atom_concat(Temp,SpecName,ComName).
 
 /* This predicate checks if the input is a correct species compound name under its genus.
-Param C is the compound species name 
-Param G is the genus. 
+Param C is the compound species name
+Param G is the genus.
 */
 isSpeciesOf_com(C,G):-
 	genus(G),checkcom(C,G,SpecName),isSpeciesOf(SpecName,G).
