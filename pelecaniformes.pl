@@ -414,6 +414,29 @@ isa(A,B):-
 %-------------countSpecies(A, N)-Start-------------
 /* Order, family, genus, or species A has N species */
 
+%Input Name is not apart of the database
+countSpecies(Name,0) :-
+	\+order(Name),\+family(Name),\+genus(Name),\+species_com(Name).
+	
+%Input Name is a compound species name
+countSpecies(Name,1) :-
+	species_com(Name).
+
+%Calls helper function
+countSpecies(Name,Num) :-
+	countSpecies([Name|[]],Num,0).
+
+%Base case for helper function
+countSpecies([],Num,Num).
+
+%Helper function which creates a list of names, which are then replaced with all children belonging to that name, until a compound species name is found, at which point we increment our count.
+countSpecies([H|T],Num,Count) :-
+	order(H) -> findall(FamilyNames,isFamilyOf(FamilyNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
+	family(H) -> findall(GenusNames,isGenusOf(GenusNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
+	genus(H) -> findall(CompoundSpeciesNames,isSpeciesOf_com(CompoundSpeciesNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
+	species_com(H), Count2 is Count + 1, countSpecies(T,Num,Count2).
+	
+/*
 len([],0).
 len([_|T],X):-
 	len(T,X1),
@@ -454,7 +477,7 @@ loop_list([H|T],N):-
 	countSpecies(H, B),
 	loop_list(T,A),
 	N is B + A.
-
+*/
 %-------------countSpecies(A, N)-end-------------
 
 
