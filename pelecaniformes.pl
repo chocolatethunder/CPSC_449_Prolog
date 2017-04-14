@@ -395,9 +395,10 @@ synonym(A,B):-
 
 /* B(can be common name) is an ancestor of A(can be common name) */
 isa(A,B):-
+
 	var(A),\+commonName(B) -> isaStrict(A,B);
 	\+commonName(A),var(B) -> isaStrict(A,B);
-	\+commonName(A),\+commonName(B),nonvar(A),nonvar(B) -> isaStrict(A,B);
+	\+commonName(A),\+commonName(B) -> isaStrict(A,B);
 	commonName(A),var(B) -> hasCommonName(X,A),isaStrict(X,B);
 	commonName(B),var(A) -> hasCommonName(X,B),isaStrict(A,X);
 	commonName(A),\+commonName(B),nonvar(B) -> hasCommonName(X,A),isaStrict(X,B);
@@ -422,6 +423,7 @@ countSpecies(A, 0):-
 countSpecies(A, 1):-
 	species_com(A).
 
+% if genus or higher order
 countSpecies(A, N):-
 	order(A) -> loop_order(A, N);
 	family(A) -> loop_family(A, N);
@@ -448,6 +450,7 @@ loop_list([H|T],N):-
 	countSpecies(H, B),
 	loop_list(T,A),
 	N is B + A.
+
 %-------------countSpecies(A, N)-end-------------
 
 
