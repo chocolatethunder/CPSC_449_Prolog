@@ -358,11 +358,6 @@ isaStrict(A,B):-
 	hasParent2(A,B);
 	hasParent2(A,X), isaStrict(X,B).
 
-/* A is common name of scientific name B or vice versa. */
-synonym(A,B):-
-	(hasCommonName(B,A); hasCommonName(A,B)), \+(A=B);
-	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
-
 /* B (can be common name) is an ancestor of A (can be common name). */
 isa(A,B):-
 	var(A),\+commonName(B) -> isaStrict(A,B);
@@ -373,6 +368,11 @@ isa(A,B):-
 	commonName(A),\+commonName(B) -> hasCommonName(X,A),isaStrict(X,B);
 	commonName(B),\+commonName(A) -> hasCommonName(X,B),isaStrict(A,X);
 	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
+	
+/* A is common name of scientific name B or vice versa. */
+synonym(A,B):-
+	(hasCommonName(B,A); hasCommonName(A,B)), \+(A=B);
+	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
 
 %-------------countSpecies(A, N)-Start-------------
 /* Order, family, genus, or species A has N species */
@@ -401,37 +401,59 @@ countSpecies([H|T],Num,Count) :-
 
 %-------------countSpecies(A, N)-end-------------
 
-/* (bird) A's range extends to P, where P may be either Canada or Alberta. */
-rangesTo(A,B):-
-	var(A) -> rangesTo_db(A,B);
-	var(B),species_com(A) -> rangesTo_db(A,B);
-	species_com(A) -> rangesTo_db(A,B);
-	hasParent2(X,A), rangesTo(X,B).
+/* This method checks or returns the range of a bird can extend to. 
+A - (Variable or Atom) The compound species name, genus, family, or order or a bird (Not raw species name).
+R - The range type R wher R is canada or alberta.
+Returns the range if only Param A is provided.
+Returns a check if both Param A and Param R are provided.
+*/
+rangesTo(A,R):-
+	var(A) -> rangesTo_db(A,R);
+	var(R),species_com(A) -> rangesTo_db(A,R);
+	species_com(A) -> rangesTo_db(A,R);
+	hasParent2(X,A), rangesTo(X,R).
 
-/* (bird) A prefers a habitat of B, where B is lakePond, ocean, or marsh. */
-habitat(A,B):-
-	var(A) -> habitat_db(A,B);
-	var(B),species_com(A) -> habitat_db(A,B);
-	species_com(A) -> habitat_db(A,B);
-	hasParent2(X,A), habitat(X,B).
-
-/* (bird) A prefers to eat B, where B is fish or insects. */
-food(A,B):-
-	var(A) -> food_db(A,B);
-	var(B),species_com(A) -> food_db(A,B);
-	species_com(A) -> food_db(A,B);
-	hasParent2(X,A), food(X,B).
-
-/* (bird) A prefers to nest in B, where B is ground or tree. */
-nesting(A,B):-
-	var(A) -> nesting_db(A,B);
-	var(B),species_com(A) -> nesting_db(A,B);
-	species_com(A) -> nesting_db(A,B);
-	hasParent2(X,A), nesting(X,B).
-
-/* This method returns what type of feeding behaviour a certain bird exhibits. 
+/* This method checks or returns the a bird's habitat. 
 A - The compound species name, genus, family, or order or a bird (Not raw species name).
-B - The feeding behavior B where B is surfaceDive, aerialDive, stalking, groundForager, or probing.
+H - The habitat type H where H is lakePond, ocean, or marsh.
+Returns habitat type if only Param A is provided.
+Returns a check if both Param A and Param H are provided.
+*/
+habitat(A,H):-
+	var(A) -> habitat_db(A,H);
+	var(H),species_com(A) -> habitat_db(A,H);
+	species_com(A) -> habitat_db(A,H);
+	hasParent2(X,A), habitat(X,H).
+
+/* This method checks or returns the prefered food for a bird. 
+A - The compound species name, genus, family, or order or a bird (Not raw species name).
+F - The food type F where F is fish or insects.
+Returns prefered food if only Param A is provided.
+Returns a check if both Param A and Param F are provided.
+*/
+food(A,F):-
+	var(A) -> food_db(A,F);
+	var(F),species_com(A) -> food_db(A,F);
+	species_com(A) -> food_db(A,F);
+	hasParent2(X,A), food(X,F).
+
+/* This method checks or returns the prefered nesting area for a bird. 
+Param A - The compound species name, genus, family, or order or a bird (Not raw species name).
+Param N - The nesting area N where N is ground or tree.
+Returns nesting area if only Param A is provided.
+Returns a check if both Param A and Param N are provided.
+*/
+nesting(A,N):-
+	var(A) -> nesting_db(A,N);
+	var(N),species_com(A) -> nesting_db(A,N);
+	species_com(A) -> nesting_db(A,N);
+	hasParent2(X,A), nesting(X,N).
+
+/* This method checks or returns what type of feeding behaviour a certain bird exhibits. 
+Param A - The compound species name, genus, family, or order or a bird (Not raw species name).
+Param B - The feeding behavior B where B is surfaceDive, aerialDive, stalking, groundForager, or probing.
+Returns feeding behavior if only Param A is provided.
+Returns a check if both Param A and Param B are provided.
 */
 behavior(A,B):-
 	var(A) -> behavior_db(A,B);
@@ -439,9 +461,11 @@ behavior(A,B):-
 	species_com(A) -> behavior_db(A,B);
 	hasParent2(X,A), behavior(X,B).
 
-/* This method returns the conservation status of a given bird. Whether it is of low concern or near extinction. 
-A - The compound species name, genus, family, or order or a bird (Not raw species name).
-B - It is the conservation status such as lc(low concern) or nt(near threatened) 
+/* This method checks or returns the conservation status of a given bird. Whether it is of low concern or near extinction. 
+Param A - The compound species name, genus, family, or order or a bird (Not raw species name).
+Param B - It is the conservation status such as lc(low concern) or nt(near threatened)
+Returns conservation status if only Param A is provided.
+Returns a check if both Param A and Param B are provided.
 */
 conservation(A,B):-
 	var(A) -> conservation_db(A,B);
