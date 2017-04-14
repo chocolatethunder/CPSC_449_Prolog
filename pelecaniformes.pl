@@ -382,10 +382,7 @@ hasCompoundName(G,S,N):-
 
 /* B is an ancestor of A */
 isaStrict(A,B):-
-	family(A), A = B;
-	order(A), A = B;
-	species_com(A), A = B;
-	genus(A), A = B;
+	( family(A); order(A); genus(A); species_com(A) ), A = B;
 	hasParent2(A,B);
 	hasParent2(A,X), isaStrict(X,B).
 
