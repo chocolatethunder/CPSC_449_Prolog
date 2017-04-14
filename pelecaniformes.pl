@@ -7,7 +7,7 @@ Group members: Kowther Hassan, Matthew Mullins, Kaylee Stelter, Saurabh Tomar an
 
 A simple biological database about the order Pelecaniformes (Pelicans,
 Herons, Ibises, and allies) in North America. This database is based on the
-data given in the Cornell Lab on Ornithology. 
+data given in the Cornell Lab on Ornithology.
 
 */
 
@@ -417,7 +417,7 @@ isa(A,B):-
 %Input Name is not apart of the database
 countSpecies(Name,0) :-
 	\+order(Name),\+family(Name),\+genus(Name),\+species_com(Name).
-	
+
 %Input Name is a compound species name
 countSpecies(Name,1) :-
 	species_com(Name).
@@ -435,49 +435,7 @@ countSpecies([H|T],Num,Count) :-
 	family(H) -> findall(GenusNames,isGenusOf(GenusNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
 	genus(H) -> findall(CompoundSpeciesNames,isSpeciesOf_com(CompoundSpeciesNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
 	species_com(H), Count2 is Count + 1, countSpecies(T,Num,Count2).
-	
-/*
-len([],0).
-len([_|T],X):-
-	len(T,X1),
-	X is X1 + 1.
 
-% not part of the database return 0
-countSpecies(A, 0):-
-	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
-
-% if species return 1
-countSpecies(A, 1):-
-	species_com(A).
-
-% if genus or higher order
-countSpecies(A, N):-
-	order(A) -> loop_order(A, N);
-	family(A) -> loop_family(A, N);
-	genus(A),
-	findall(X,isSpeciesOf_com(X,A),Z),
-	len(Z,N).
-
-loop_order(A,N):-
-	findall(X,isFamilyOf(X,A),Z),
-	loop_st(Z,N).
-
-loop_st([],0).
-loop_st([H|T],N):-
-	loop_family(H,A),
-	loop_st(T,B),
-	N is B + A.
-
-loop_family(A,N):-
-	findall(X,isGenusOf(X,A),Z),
-	loop_list(Z,N).
-
-loop_list([],0).
-loop_list([H|T],N):-
-	countSpecies(H, B),
-	loop_list(T,A),
-	N is B + A.
-*/
 %-------------countSpecies(A, N)-end-------------
 
 
@@ -492,7 +450,7 @@ rangesTo(A,B):-
 habitat(A,B):-
 	var(A) -> habitat_db(A,B);
 	var(B),species_com(A) -> habitat_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> habitat_db(A,B);
+	species_com(A) -> habitat_db(A,B);
 	hasParent2(X,A), habitat(X,B).
 
 
@@ -500,7 +458,7 @@ habitat(A,B):-
 food(A,B):-
 	var(A) -> food_db(A,B);
 	var(B),species_com(A) -> food_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> food_db(A,B);
+	species_com(A) -> food_db(A,B);
 	hasParent2(X,A), food(X,B).
 
 
@@ -508,7 +466,7 @@ food(A,B):-
 nesting(A,B):-
 	var(A) -> nesting_db(A,B);
 	var(B),species_com(A) -> nesting_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> nesting_db(A,B);
+	species_com(A) -> nesting_db(A,B);
 	hasParent2(X,A), nesting(X,B).
 
 
@@ -516,7 +474,7 @@ nesting(A,B):-
 behavior(A,B):-
 	var(A) -> behavior_db(A,B);
 	var(B),species_com(A) -> behavior_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> behavior_db(A,B);
+	species_com(A) -> behavior_db(A,B);
 	hasParent2(X,A), behavior(X,B).
 
 
@@ -524,5 +482,5 @@ behavior(A,B):-
 conservation(A,B):-
 	var(A) -> conservation_db(A,B);
 	var(B),species_com(A) -> conservation_db(A,B);
-	species_com(A),nonvar(A),nonvar(B) -> conservation_db(A,B);
+	species_com(A) -> conservation_db(A,B);
 	hasParent2(X,A), conservation(X,B).
