@@ -13,84 +13,84 @@ data given in the Cornell Lab on Ornithology.
 /*--------------------------------------Auxillary Methods Start-----------------------------------*/
 /* This predicate is used to determine if the input is a common name. Written in this
    non-standard format for ease of reading. */
-commonName(A):-
-	A = pelican;
-	A = americanWhitePelican;
-	A = brownPelican;
-	A = bittern;
-	A = americanBittern;
-	A = leastBittern;
-	A = heron;
-	A = greatBlueHeron;
-	A = greatEgret;
-	A = egret;
-	A = snowyEgret;
-	A = littleBlueHeron;
-	A = tricoloredHeron;
-	A = reddishEgret;
-	A = cattleEgret;
-	A = greenHeron;
-	A = nightHeron;
-	A = blackCrownedNightHeron;
-	A = nightHeron;
-	A = yellowCrownedNightHeron;
-	A = ibis;
-	A = whiteIbis;
-	A = glossyIbis;
-	A = whiteFacedIbis;
-	A = spoonbill;
-	A = roseateSpoonbill.
+commonName(C):-
+	C = pelican;
+	C = americanWhitePelican;
+	C = brownPelican;
+	C = bittern;
+	C = americanBittern;
+	C = leastBittern;
+	C = heron;
+	C = greatBlueHeron;
+	C = greatEgret;
+	C = egret;
+	C = snowyEgret;
+	C = littleBlueHeron;
+	C = tricoloredHeron;
+	C = reddishEgret;
+	C = cattleEgret;
+	C = greenHeron;
+	C = nightHeron;
+	C = blackCrownedNightHeron;
+	C = nightHeron;
+	C = yellowCrownedNightHeron;
+	C = ibis;
+	C = whiteIbis;
+	C = glossyIbis;
+	C = whiteFacedIbis;
+	C = spoonbill;
+	C = roseateSpoonbill.
 
 /* This predicate checks if the input is a correct family under its order.
-Param A is the family.
-Param B is the order.
+Param F is the family.
+Param O is the order.
 */
-isFamilyOf(A, B):-
-	A = pelecanidae, B = pelecaniformes;
-	A = ardeidae, B = pelecaniformes;
-	A = threskiornithidae, B = pelecaniformes.
+isFamilyOf(F, O):-
+	F = pelecanidae, O = pelecaniformes;
+	F = ardeidae, O = pelecaniformes;
+	F = threskiornithidae, O = pelecaniformes.
 
 /* This predicate checks if the input is a correct genus under its family.
 Param A is the genus.
-Param B is the family.
+Param F is the family.
 */
-isGenusOf(A,B):-
-	A = pelecanus,B = pelecanidae;
-	A = botaurus,B = ardeidae;
-	A = ixobrychus,B = ardeidae;
-	A = ardea,B = ardeidae;
-	A = egretta,B = ardeidae;
-	A = bubulcus,B = ardeidae;
-	A = butorides,B = ardeidae;
-	A = nycticorax,B = ardeidae;
-	A = nyctanassa,B = ardeidae;
-	A = eudocimus,B = threskiornithidae;
-	A = plegadis,B = threskiornithidae;
-	A = platalea,B = threskiornithidae.
+isGenusOf(G,F):-
+	G = pelecanus,F = pelecanidae;
+	G = botaurus,F = ardeidae;
+	G = ixobrychus,F = ardeidae;
+	G = ardea,F = ardeidae;
+	G = egretta,F = ardeidae;
+	G = bubulcus,F = ardeidae;
+	G = butorides,F = ardeidae;
+	G = nycticorax,F = ardeidae;
+	G = nyctanassa,F = ardeidae;
+	G = eudocimus,F = threskiornithidae;
+	G = plegadis,F = threskiornithidae;
+	G = platalea,F = threskiornithidae.
 
 /* This predicate checks if the input is a correct species RAW name under its genus.
-Param A is a RAW species name.
-Param B is the genus.
+Param S is a RAW species name.
+Param G is the genus.
 */
-isSpeciesOf(A,B):-
-	A = erythrorhynchos,B = pelecanus;
-	A = occidentalis,B = pelecanus;
-	A = lentiginosus,B = botaurus;
-	A = exilis,B = ixobrychus;
-	A = herodias,B = ardea;
-	A = alba,B = ardea;
-	A = thula,B = egretta;
-	A = caerulea,B = egretta;
-	A = tricolor,B = egretta;
-	A = rufescens,B = egretta;
-	A = ibis,B = bubulcus;
-	A = virescens,B = butorides;
-	A = nycticorax,B = nycticorax;
-	A = violacea,B = nyctanassa;
-	A = albus,B = eudocimus;
-	A = falcinellus,B = plegadis;
-	A = chihi,B = plegadis;
-	A = ajaja,B = platalea.
+isSpeciesOf(S,G):-
+	S = erythrorhynchos,G = pelecanus;
+	S = occidentalis,G = pelecanus;
+	S = lentiginosus,G = botaurus;
+	S = exilis,G = ixobrychus;
+	S = herodias,G = ardea;
+	S = alba,G = ardea;
+	S = thula,G = egretta;
+	S = caerulea,G = egretta;
+	S = tricolor,G = egretta;
+	S = rufescens,G = egretta;
+	S = ibis,G = bubulcus;
+	S = virescens,G = butorides;
+	S = nycticorax,G = nycticorax;
+	S = violacea,G = nyctanassa;
+	S = albus,G = eudocimus;
+	S = falcinellus,G = plegadis;
+	S = chihi,G = plegadis;
+	S = ajaja,G = platalea.
 
 /* This predicate checks if the input is a correct species name under its genus.
 Param ComName is the compound species name.
@@ -102,162 +102,164 @@ checkcom(ComName,GenName,SpecName):-
 	atom_concat(GenName,'_',Temp),genus(GenName),species(SpecName),atom_concat(Temp,SpecName,ComName).
 
 /* This predicate checks if the input is a correct species compound name under its genus.
-   A is the compound species name and B is the genus. */
-isSpeciesOf_com(A,B):-
-	genus(B),checkcom(A,B,SpecName),isSpeciesOf(SpecName,B).
+Param C is the compound species name 
+Param G is the genus. 
+*/
+isSpeciesOf_com(C,G):-
+	genus(G),checkcom(C,G,SpecName),isSpeciesOf(SpecName,G).
 
 /* This predicate checks if A is a correct compound name of species. */
 species_com(A):-
 	isSpeciesOf_com(A,B),genus(B).
 
-/* This predicate checks if N (genus) has a common name C (and vice versa). */
-hasCommonName_gen(N,C):-
-	N = pelecanus,C = pelican;
-	N = botaurus,C = bittern;
-	N = ixobrychus,C = bittern;
-	N = ardea,C = heron;
-	N = egretta,C = heron;
-	N = egretta,C = egret;
-	N = bubulcus,C = egret;
-	N = butorides,C = heron;
-	N = nycticorax,C = nightHeron;
-	N = nyctanassa,C = nightHeron;
-	N = eudocimus,C = ibis;
-	N = plegadis,C = ibis;
-	N = platalea,C = spoonbill.
+/* This predicate checks if G (genus) has a common name C (and vice versa). */
+hasCommonName_gen(G,C):-
+	G = pelecanus,C = pelican;
+	G = botaurus,C = bittern;
+	G = ixobrychus,C = bittern;
+	G = ardea,C = heron;
+	G = egretta,C = heron;
+	G = egretta,C = egret;
+	G = bubulcus,C = egret;
+	G = butorides,C = heron;
+	G = nycticorax,C = nightHeron;
+	G = nyctanassa,C = nightHeron;
+	G = eudocimus,C = ibis;
+	G = plegadis,C = ibis;
+	G = platalea,C = spoonbill.
 
 /* This predicate checks if N (species compound name) has a common name C (and vice versa). */
 hasCommonName_com(N,C):-
 	species_com(N),checkcom(N,GenName,SpecName),isSpeciesOf(SpecName,GenName),hasCommonName_raw(SpecName,C).
 
-/* This predicate checks if N (species raw name) has a common name C (and vice versa). */
-hasCommonName_raw(N,C):-
-	N = erythrorhynchos,C = americanWhitePelican;
-	N = occidentalis,C = brownPelican;
-	N = lentiginosus,C = americanBittern;
-	N = exilis,C = leastBittern;
-	N = herodias,C = greatBlueHeron;
-	N = alba,C = greatEgret;
-	N = thula,C = snowyEgret;
-	N = caerulea,C = littleBlueHeron;
-	N = tricolor,C = tricoloredHeron;
-	N = rufescens,C = reddishEgret;
-	N = ibis,C = cattleEgret;
-	N = virescens,C = greenHeron;
-	N = nycticorax,C = blackCrownedNightHeron;
-	N = violacea,C = yellowCrownedNightHeron;
-	N = albus,C = whiteIbis;
-	N = falcinellus,C = glossyIbis;
-	N = chihi,C = whiteFacedIbis;
-	N = ajaja,C = roseateSpoonbill.
+/* This predicate checks if S (species raw name) has a common name C (and vice versa). */
+hasCommonName_raw(S,C):-
+	S = erythrorhynchos,C = americanWhitePelican;
+	S = occidentalis,C = brownPelican;
+	S = lentiginosus,C = americanBittern;
+	S = exilis,C = leastBittern;
+	S = herodias,C = greatBlueHeron;
+	S = alba,C = greatEgret;
+	S = thula,C = snowyEgret;
+	S = caerulea,C = littleBlueHeron;
+	S = tricolor,C = tricoloredHeron;
+	S = rufescens,C = reddishEgret;
+	S = ibis,C = cattleEgret;
+	S = virescens,C = greenHeron;
+	S = nycticorax,C = blackCrownedNightHeron;
+	S = violacea,C = yellowCrownedNightHeron;
+	S = albus,C = whiteIbis;
+	S = falcinellus,C = glossyIbis;
+	S = chihi,C = whiteFacedIbis;
+	S = ajaja,C = roseateSpoonbill.
 
 /* Database used for rangesTo(A,B).
-Param N is the species compound name
-Param C is the provincial/national range. */
-rangesTo_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = alberta;
-	N = pelecanus_erythrorhynchos,C = canada;
-	N = botaurus_lentiginosus,C = alberta;
-	N = botaurus_lentiginosus,C = canada;
-	N = ardea_herodias,C = alberta;
-	N = ardea_herodias,C = canada;
-	N = ardea_alba,C = canada;
-	N = bubulcus_ibis,C = canada;
-	N = butorides_virescens,C = canada;
-	N = nycticorax_nycticorax,C = alberta;
-	N = nycticorax_nycticorax,C = canada.
+Param C is the species compound name
+Param R is the provincial/national range. */
+rangesTo_db(C,R):-
+	C = pelecanus_erythrorhynchos,R = alberta;
+	C = pelecanus_erythrorhynchos,R = canada;
+	C = botaurus_lentiginosus,R = alberta;
+	C = botaurus_lentiginosus,R = canada;
+	C = ardea_herodias,R = alberta;
+	C = ardea_herodias,R = canada;
+	C = ardea_alba,R = canada;
+	C = bubulcus_ibis,R = canada;
+	C = butorides_virescens,R = canada;
+	C = nycticorax_nycticorax,R = alberta;
+	C = nycticorax_nycticorax,R = canada.
 
 /* Database used for habitat(A,B).
-Param N is the species compound name
-Param C is the habitat. */
-habitat_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = lakePond;
-	N = pelecanus_occidentalis,C = ocean;
-	N = botaurus_lentiginosus,C = marsh;
-	N = ixobrychus_exilis,C = marsh;
-	N = ardea_herodias,C = marsh;
-	N = ardea_alba,C = marsh;
-	N = egretta_thula,C = marsh;
-	N = egretta_caerulea,C = marsh;
-	N = egretta_tricolor,C = marsh;
-	N = egretta_rufescens,C = marsh;
-	N = bubulcus_ibis,C = marsh;
-	N = butorides_virescens,C = marsh;
-	N = nycticorax_nycticorax,C = marsh;
-	N = nyctanassa_violacea,C = marsh;
-	N = eudocimus_albus,C = marsh;
-	N = plegadis_falcinellus,C = marsh;
-	N = plegadis_chihi,C = marsh;
-	N = platalea_ajaja,C = marsh.
+Param C is the species compound name
+Param H is the habitat. */
+habitat_db(C,H):-
+	C = pelecanus_erythrorhynchos,H = lakePond;
+	C = pelecanus_occidentalis,H = ocean;
+	C = botaurus_lentiginosus,H = marsh;
+	C = ixobrychus_exilis,H = marsh;
+	C = ardea_herodias,H = marsh;
+	C = ardea_alba,H = marsh;
+	C = egretta_thula,H = marsh;
+	C = egretta_caerulea,H = marsh;
+	C = egretta_tricolor,H = marsh;
+	C = egretta_rufescens,H = marsh;
+	C = bubulcus_ibis,H = marsh;
+	C = butorides_virescens,H = marsh;
+	C = nycticorax_nycticorax,H = marsh;
+	C = nyctanassa_violacea,H = marsh;
+	C = eudocimus_albus,H = marsh;
+	C = plegadis_falcinellus,H = marsh;
+	C = plegadis_chihi,H = marsh;
+	C = platalea_ajaja,H = marsh.
 
 /* Database used for food(A,B).
-Param N is the species compound name
-Param C is the typical diet of that species. */
-food_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = fish;
-	N = pelecanus_occidentalis,C = fish;
-	N = botaurus_lentiginosus,C = fish;
-	N = ixobrychus_exilis,C = fish;
-	N = ardea_herodias,C = fish;
-	N = ardea_alba,C = fish;
-	N = egretta_thula,C = fish;
-	N = egretta_caerulea,C = fish;
-	N = egretta_tricolor,C = fish;
-	N = egretta_rufescens,C = fish;
-	N = bubulcus_ibis,C = insects;
-	N = butorides_virescens,C = fish;
-	N = nycticorax_nycticorax,C = fish;
-	N = nyctanassa_violacea,C = insects;
-	N = eudocimus_albus,C = insects;
-	N = plegadis_falcinellus,C = insects;
-	N = plegadis_chihi,C = insects;
-	N = platalea_ajaja,C = fish.
+Param C is the species compound name
+Param D is the typical diet of that species. */
+food_db(C,D):-
+	C = pelecanus_erythrorhynchos,D = fish;
+	C = pelecanus_occidentalis,D = fish;
+	C = botaurus_lentiginosus,D = fish;
+	C = ixobrychus_exilis,D = fish;
+	C = ardea_herodias,D = fish;
+	C = ardea_alba,D = fish;
+	C = egretta_thula,D = fish;
+	C = egretta_caerulea,D = fish;
+	C = egretta_tricolor,D = fish;
+	C = egretta_rufescens,D = fish;
+	C = bubulcus_ibis,D = insects;
+	C = butorides_virescens,D = fish;
+	C = nycticorax_nycticorax,D = fish;
+	C = nyctanassa_violacea,D = insects;
+	C = eudocimus_albus,D = insects;
+	C = plegadis_falcinellus,D = insects;
+	C = plegadis_chihi,D = insects;
+	C = platalea_ajaja,D = fish.
 
 /* Database used for nesting(A,B).
-Param N is the species compound name
-Param C is the nesting ground for that species. */
-nesting_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = ground;
-	N = pelecanus_occidentalis,C = tree;
-	N = botaurus_lentiginosus,C = ground;
-	N = ixobrychus_exilis,C = ground;
-	N = ardea_herodias,C = tree;
-	N = ardea_alba,C = tree;
-	N = egretta_thula,C = tree;
-	N = egretta_caerulea,C = tree;
-	N = egretta_tricolor,C = tree;
-	N = egretta_rufescens,C = tree;
-	N = bubulcus_ibis,C = tree;
-	N = butorides_virescens,C = tree;
-	N = nycticorax_nycticorax,C = tree;
-	N = nyctanassa_violacea,C = tree;
-	N = eudocimus_albus,C = tree;
-	N = plegadis_falcinellus,C = ground;
-	N = plegadis_chihi,C = ground;
-	N = platalea_ajaja,C = tree.
+Param C is the species compound name
+Param N is the nesting ground for that species. */
+nesting_db(C,N):-
+	C = pelecanus_erythrorhynchos,N = ground;
+	C = pelecanus_occidentalis,N = tree;
+	C = botaurus_lentiginosus,N = ground;
+	C = ixobrychus_exilis,N = ground;
+	C = ardea_herodias,N = tree;
+	C = ardea_alba,N = tree;
+	C = egretta_thula,N = tree;
+	C = egretta_caerulea,N = tree;
+	C = egretta_tricolor,N = tree;
+	C = egretta_rufescens,N = tree;
+	C = bubulcus_ibis,N = tree;
+	C = butorides_virescens,N = tree;
+	C = nycticorax_nycticorax,N = tree;
+	C = nyctanassa_violacea,N = tree;
+	C = eudocimus_albus,N = tree;
+	C = plegadis_falcinellus,N = ground;
+	C = plegadis_chihi,N = ground;
+	C = platalea_ajaja,N = tree.
 
 /* Database used for behavior(A,B).
-Param N is the species compound name
-Param C is the typical behavior for that species. */
-behavior_db(N,C):-
-	N = pelecanus_erythrorhynchos,C = surfaceDive;
-	N = pelecanus_occidentalis,C = aerialDive;
-	N = botaurus_lentiginosus,C = stalking;
-	N = ixobrychus_exilis,C = stalking;
-	N = ardea_herodias,C = stalking;
-	N = ardea_alba,C = stalking;
-	N = egretta_thula,C = stalking;
-	N = egretta_caerulea,C = stalking;
-	N = egretta_tricolor,C = stalking;
-	N = egretta_rufescens,C = stalking;
-	N = bubulcus_ibis,C = groundForager;
-	N = butorides_virescens,C = stalking;
-	N = nycticorax_nycticorax,C = stalking;
-	N = nyctanassa_violacea,C = stalking;
-	N = eudocimus_albus,C = probing;
-	N = plegadis_falcinellus,C = probing;
-	N = plegadis_chihi,C = probing;
-	N = platalea_ajaja,C = probing.
+Param C is the species compound name
+Param B is the typical behavior for that species. */
+behavior_db(C,B):-
+	C = pelecanus_erythrorhynchos,B = surfaceDive;
+	C = pelecanus_occidentalis,B = aerialDive;
+	C = botaurus_lentiginosus,B = stalking;
+	C = ixobrychus_exilis,B = stalking;
+	C = ardea_herodias,B = stalking;
+	C = ardea_alba,B = stalking;
+	C = egretta_thula,B = stalking;
+	C = egretta_caerulea,B = stalking;
+	C = egretta_tricolor,B = stalking;
+	C = egretta_rufescens,B = stalking;
+	C = bubulcus_ibis,B = groundForager;
+	C = butorides_virescens,B = stalking;
+	C = nycticorax_nycticorax,B = stalking;
+	C = nyctanassa_violacea,B = stalking;
+	C = eudocimus_albus,B = probing;
+	C = plegadis_falcinellus,B = probing;
+	C = plegadis_chihi,B = probing;
+	C = platalea_ajaja,B = probing.
 
 /* Database used for conservation(A,B).
 Param N is the species compound name
@@ -295,56 +297,56 @@ conservation_db(N,C):-
 /* Checks if A is a valid order name.
 Param A - Order name. Cannot be a common name.
 */
-order(A):-
-	A = pelecaniformes.
+order(O):-
+	O = pelecaniformes.
 
 /* Checks if A is a valid family name.
 Param A - Family name. Cannot be a common name.
 */
-family(A):-
-	A = pelecanidae;
-	A = ardeidae;
-	A = threskiornithidae.
+family(F):-
+	F = pelecanidae;
+	F = ardeidae;
+	F = threskiornithidae.
 
 /* Checks if A is a valid genus name.
 Param A - Genus name. Cannot be a common name.
 */
-genus(A):-
-	A = pelecanus;
-	A = botaurus;
-	A = ixobrychus;
-	A = ardea;
-	A = egretta;
-	A = bubulcus;
-	A = butorides;
-	A = nycticorax;
-	A = nyctanassa;
-	A = eudocimus;
-	A = plegadis;
-	A = platalea.
+genus(G):-
+	G = pelecanus;
+	G = botaurus;
+	G = ixobrychus;
+	G = ardea;
+	G = egretta;
+	G = bubulcus;
+	G = butorides;
+	G = nycticorax;
+	G = nyctanassa;
+	G = eudocimus;
+	G = plegadis;
+	G = platalea.
 
 /* Checks if A is a valid species name.
 Param A - RAW species name. Cannot be a common name or common name.
 */
-species(A):-
-	A = erythrorhynchos;
-	A = occidentalis;
-	A = lentiginosus;
-	A = exilis;
-	A = herodias;
-	A = alba;
-	A = thula;
-	A = caerulea;
-	A = tricolor;
-	A = rufescens;
-	A = ibis;
-	A = virescens;
-	A = nycticorax;
-	A = violacea;
-	A = albus;
-	A = falcinellus;
-	A = chihi;
-	A = ajaja.
+species(S):-
+	S = erythrorhynchos;
+	S = occidentalis;
+	S = lentiginosus;
+	S = exilis;
+	S = herodias;
+	S = alba;
+	S = thula;
+	S = caerulea;
+	S = tricolor;
+	S = rufescens;
+	S = ibis;
+	S = virescens;
+	S = nycticorax;
+	S = violacea;
+	S = albus;
+	S = falcinellus;
+	S = chihi;
+	S = ajaja.
 
 /* This method checks if B is a direct parent of A. This version optionally takes a raw species name, but not a compound species name.
 Param A - order, family, genus, or raw species name
