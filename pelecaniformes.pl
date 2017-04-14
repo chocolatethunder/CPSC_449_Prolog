@@ -347,18 +347,28 @@ hasCommonName(G,S,C):-
 hasSciName(C,N):-
 	hasCommonName(N,C).
 
-/* N is a the compound name for the genus G and species S. */
+/* This method checks if N is a the compound name for the genus G and species S. 
+Param G - Genus of the species
+Param S - Species name for the species
+Param N - The compound name being checked
+*/
 hasCompoundName(G,S,N):-
 	hasCommonName(G,S,C),
 	hasCommonName(N,C).
 
-/* B is an ancestor of A. */
+/* This method checks if B is an Ancestor of A. Different from isa(A,B) as it does not deal with common names of species.
+Param A - Order names, family names, genus names, compound species names, or variables
+Param B - Order names, family names, genus names, compound species names, or variables
+*/
 isaStrict(A,B):-
 	(family(A); order(A); genus(A); species_com(A)), A = B;
 	hasParent2(A,B);
 	hasParent2(A,X), isaStrict(X,B).
 
-/* B (can be common name) is an ancestor of A (can be common name). */
+/* This method checks if B is an Ancestor of A.
+Param A - Order names, family names, genus names, compound species names, common names, or variables
+Param B - Order names, family names, genus names, compound species names, common names, or variables
+*/
 isa(A,B):-
 	var(A),\+commonName(B) -> isaStrict(A,B);
 	\+commonName(A),var(B) -> isaStrict(A,B);
@@ -369,7 +379,10 @@ isa(A,B):-
 	commonName(B),\+commonName(A) -> hasCommonName(X,B),isaStrict(A,X);
 	hasCommonName(X,A),hasCommonName(Y,B),isaStrict(X,Y).
 	
-/* A is common name of scientific name B or vice versa. */
+/* This method checks whether A is scientific name of B or vice versa. A and B cannot be the same.
+Param A - Either a Common Name and B is a Scientific Name (an order name, a family name, a genus name, or a compound species name) to check against 
+Param B - Either a Common Name and A is a Scientific Name (an order name, a family name, a genus name, or a compound species name) to check against
+*/
 synonym(A,B):-
 	(hasCommonName(B,A); hasCommonName(A,B)), \+(A=B);
 	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
