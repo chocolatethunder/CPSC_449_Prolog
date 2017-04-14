@@ -382,15 +382,14 @@ hasCompoundName(G,S,N):-
 
 /* B is an ancestor of A */
 isaStrict(A,B):-
-	( family(A); order(A); genus(A); species_com(A) ), A = B;
+	(family(A); order(A); genus(A); species_com(A)), A = B;
 	hasParent2(A,B);
 	hasParent2(A,X), isaStrict(X,B).
 
 
 /* A is common name of scientific name B or vice versa */
 synonym(A,B):-
-	hasCommonName(B,A), \+(A=B);
-	hasCommonName(A,B), \+(A=B);
+	(hasCommonName(B,A); hasCommonName(A,B)), \+(A=B);
 	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
 
 
