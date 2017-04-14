@@ -438,7 +438,7 @@ countSpecies(Name,1) :-
 
 %Calls helper function
 countSpecies(Name,Num) :-
-	countSpecies([Name|[]],Num,0).
+	countSpecies([Name|[]],Num,0).		% count begins at 0
 
 %Base case for helper function
 countSpecies([],Num,Num).
