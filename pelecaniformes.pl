@@ -386,9 +386,8 @@ isaStrict(A,B):-
 	order(A), A = B;
 	species_com(A), A = B;
 	genus(A), A = B;
-	hasParent2(A,X), hasParent2(X,Y), hasParent2(Y,B);
-	hasParent2(A,X),hasParent2(X,B);
-	hasParent2(A,B).
+	hasParent2(A,B);
+	hasParent2(A,X), isaStrict(X,B).
 
 
 /* A is common name of scientific name B or vice versa */
