@@ -382,11 +382,11 @@ hasCompoundName(G,S,N):-
 
 /* B is an ancestor of A */
 isaStrict(A,B):-
-	family(A),family(B),A = B;
-	order(A),order(B),A = B;
-	species_com(A),species_com(B),A = B;
-	genus(A),genus(B),A = B;
-	isSpeciesOf_com(A,X),isGenusOf(X,Y),isFamilyOf(Y,B);
+	family(A), A = B;
+	order(A), A = B;
+	species_com(A), A = B;
+	genus(A), A = B;
+	hasParent2(A,X), hasParent2(X,Y), hasParent2(Y,B);
 	hasParent2(A,X),hasParent2(X,B);
 	hasParent2(A,B).
 
