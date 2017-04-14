@@ -414,9 +414,11 @@ len([_|T],X):-
 	len(T,X1),
 	X is X1 + 1.
 
+% not part of the database return 0
 countSpecies(A, 0):-
 	\+(order(A)),\+(family(A)),\+(genus(A)),\+(species_com(A)).
 
+% if species return 1
 countSpecies(A, 1):-
 	species_com(A).
 
@@ -454,19 +456,14 @@ rangesTo(A,B):-
 	var(A) -> rangesTo_db(A,B);
 	var(B),species_com(A) -> rangesTo_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> rangesTo_db(A,B);
-	isSpeciesOf_com(X,A), rangesTo_db(X,B);
-	isGenusOf(X,A),isSpeciesOf_com(Y,X),rangesTo_db(Y,B);
-	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),rangesTo_db(Z,B).
-
+	hasParent2(X,A), rangesTo(X,B).
 
 /* (bird) A prefers a habitat of B, where B is lakePond, ocean, or marsh */
 habitat(A,B):-
 	var(A) -> habitat_db(A,B);
 	var(B),species_com(A) -> habitat_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> habitat_db(A,B);
-	isSpeciesOf_com(X,A), habitat_db(X,B);
-	isGenusOf(X,A),isSpeciesOf_com(Y,X),habitat_db(Y,B);
-	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),habitat_db(Z,B).
+	hasParent2(X,A), habitat(X,B).
 
 
 /* (bird) A prefers to eat B, where B is fish or insects */
@@ -474,9 +471,7 @@ food(A,B):-
 	var(A) -> food_db(A,B);
 	var(B),species_com(A) -> food_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> food_db(A,B);
-	isSpeciesOf_com(X,A), food_db(X,B);
-	isGenusOf(X,A),isSpeciesOf_com(Y,X),food_db(Y,B);
-	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),food_db(Z,B).
+	hasParent2(X,A), food(X,B).
 
 
 /* (bird) A prefers to nest in B, where B is ground or tree */
@@ -484,9 +479,7 @@ nesting(A,B):-
 	var(A) -> nesting_db(A,B);
 	var(B),species_com(A) -> nesting_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> nesting_db(A,B);
-	isSpeciesOf_com(X,A), nesting_db(X,B);
-	isGenusOf(X,A),isSpeciesOf_com(Y,X),nesting_db(Y,B);
-	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),nesting_db(Z,B).
+	hasParent2(X,A), nesting(X,B).
 
 
 /* (bird) A exhibits feeding behavior B, where B is surfaceDive, aerialDive, stalking, groundForager, or probing */
@@ -494,9 +487,7 @@ behavior(A,B):-
 	var(A) -> behavior_db(A,B);
 	var(B),species_com(A) -> behavior_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> behavior_db(A,B);
-	isSpeciesOf_com(X,A), behavior_db(X,B);
-	isGenusOf(X,A),isSpeciesOf_com(Y,X),behavior_db(Y,B);
-	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),behavior_db(Z,B).
+	hasParent2(X,A), behavior(X,B).
 
 
 /* (bird) A's conservation status is B, where B is lc (low concern) or nt (near threatened) */
@@ -504,6 +495,4 @@ conservation(A,B):-
 	var(A) -> conservation_db(A,B);
 	var(B),species_com(A) -> conservation_db(A,B);
 	species_com(A),nonvar(A),nonvar(B) -> conservation_db(A,B);
-	isSpeciesOf_com(X,A), conservation_db(X,B);
-	isGenusOf(X,A),isSpeciesOf_com(Y,X),conservation_db(Y,B);
-	isFamilyOf(X,A),isGenusOf(Y,X),isSpeciesOf_com(Z,Y),conservation_db(Z,B).
+	hasParent2(X,A), conservation(X,B).
