@@ -115,7 +115,7 @@ hasCommonName_gen(N,C):-
 
 /* This predicate checks if N (species compound name) has a common name C ( and vice versa ) */
 hasCommonName_com(N,C):-
-	species_com(N),checkcom(N,GenName,SpecName),hasCommonName_raw(SpecName,C).
+	species_com(N),checkcom(N,GenName,SpecName),isSpeciesOf(SpecName,GenName),hasCommonName_raw(SpecName,C).
 
 /* This predicate checks if N (species raw name) has a common name C ( and vice versa ) */
 hasCommonName_raw(N,C):-
