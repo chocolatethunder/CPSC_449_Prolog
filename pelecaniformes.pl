@@ -4,6 +4,11 @@ Professor: 	Rob Kremer
 Assignment:	Prolog
 Group #: 32
 Group members: Kowther Hassan, Matthew Mullins, Kaylee Stelter, Saurabh Tomar and Alan Lam
+
+A simple biological database about the order Pelecaniformes (Pelicans,
+Herons, Ibises, and allies) in North America. This database is based on the
+data given in the Cornell Lab on Ornithology. 
+
 */
 
 
