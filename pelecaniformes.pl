@@ -45,7 +45,7 @@ commonName(C):-
 Param F is the family.
 Param O is the order.
 */
-isFamilyOf(F, O):-
+isFamilyOf(F,O):-
 	F = pelecanidae, O = pelecaniformes;
 	F = ardeidae, O = pelecaniformes;
 	F = threskiornithidae, O = pelecaniformes.
@@ -349,15 +349,15 @@ species(S):-
 	S = ajaja.
 
 /* This method checks if B is a direct parent of A. This version optionally takes a raw species name, but not a compound species name.
-Param A - order, family, genus, or raw species name
-Param B - order, family, genus
+Param A - Child Name - order, family, genus, or raw species name
+Param B - Parent Name - order, family, genus
 */
 hasParent(A,B):-
 	isSpeciesOf(A,B); isGenusOf(A,B); isFamilyOf(A,B).
 
 /* This method checks if B is a direct parent of A.
-Param A - order, family, genus, or compound species name
-Param B - order, family, genus
+Param A - Child Name - order, family, genus, or compound species name
+Param B - Parent Name - order, family, genus
 */
 hasParent2(A, B):-
 	isSpeciesOf_com(A,B); isGenusOf(A,B); isFamilyOf(A,B).
@@ -425,9 +425,12 @@ synonym(A,B):-
 	(hasCommonName(B,A); hasCommonName(A,B)), \+(A=B);
 	hasCommonName(X,A), hasCommonName(X,B), \+(A=B).
 
-%-------------countSpecies(A, N)-Start-------------
-/* Order, family, genus, or species A has N species */
-
+/* This method counts the number of species under the given input of order, family, genus, or raw species name.
+Param Name - Input name to check number of species under, can be order, family, genus, or raw species.
+Param Num - The number of species under given Name.
+Param Count - Variable used to keep track of the number of species names that have been counted
+*/
+%-------------countSpecies/2-Start-------------
 %Input Name is not apart of the database
 countSpecies(Name,0) :-
 	\+order(Name),\+family(Name),\+genus(Name),\+species_com(Name).
@@ -438,7 +441,7 @@ countSpecies(Name,1) :-
 
 %Calls helper function
 countSpecies(Name,Num) :-
-	countSpecies([Name|[]],Num,0).		% count begins at 0
+	countSpecies([Name|[]],Num,0).		%Count begins at 0
 
 %Base case for helper function
 countSpecies([],Num,Num).
@@ -449,8 +452,7 @@ countSpecies([H|T],Num,Count) :-
 	family(H) -> findall(GenusNames,isGenusOf(GenusNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
 	genus(H) -> findall(CompoundSpeciesNames,isSpeciesOf_com(CompoundSpeciesNames,H),List), append(T,List,List2), countSpecies(List2,Num,Count);
 	species_com(H), Count2 is Count + 1, countSpecies(T,Num,Count2).
-
-%-------------countSpecies(A, N)-end-------------
+%-------------countSpecies/2-end-------------
 
 /* This method checks or returns the range of a bird can extend to.
 A - (Variable or Atom) The compound species name, genus, family, or order or a bird (Not raw species name).
